@@ -1,0 +1,59 @@
+file-extension:
+  typeToFileExtensionMap:
+    REPOSITORY: java
+    SERVICE: java
+    ENTITY: java
+    DTO: java
+    EXCEPTION: java
+    CONTROLLER_ADVICE: java
+    CONTROLLER: java
+    APPLICATION: java
+    APPLICATION_PROPERTIES: java
+    CONFIGURATION: java
+
+file-suffix:
+  typeToSuffixMap:
+    REPOSITORY: repository
+    SERVICE: service
+    ENTITY:
+    DTO: dto
+    EXCEPTION: exception
+    CONTROLLER_ADVICE: advice
+    CONTROLLER: controller
+    APPLICATION: application
+    APPLICATION_PROPERTIES: properties
+    CONFIGURATION: config
+
+package-naming:
+  default-project-path: src.main.java
+  custom-package-separator: .
+
+  typeToPackageNameMap:
+    REPOSITORY: repository
+    SERVICE: service
+    ENTITY: entity
+    DTO: dto
+    EXCEPTION: exception
+    CONTROLLER_ADVICE: advice
+    CONTROLLER: controller
+    APPLICATION:
+    APPLICATION_PROPERTIES: properties
+    CONFIGURATION: config
+
+template:
+  templatesRelativePath: templates
+  templateExtension: template
+
+  keyResolvers.ENTITY: entity
+  keyResolvers.IMPORT: import
+
+  fileNameResolvers.REPOSITORY:  repository
+  fileNameResolvers.SERVICE:  service
+  fileNameResolvers.ENTITY:  entity
+  fileNameResolvers.DTO:  dto
+  fileNameResolvers.EXCEPTION:  exception
+  fileNameResolvers.CONTROLLER_ADVICE:  conrollerAdvice
+  fileNameResolvers.CONTROLLER:  controller
+  fileNameResolvers.APPLICATION:  application
+  fileNameResolvers.APPLICATION_PROPERTIES:  properties
+  fileNameResolvers.CONFIGURATION:  config
