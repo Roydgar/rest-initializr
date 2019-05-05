@@ -1,0 +1,47 @@
+package $service-package;
+
+import $entity-import;
+import $create-request-import;
+import $update-request-import;
+import $exception-import;
+import $request-mapper-import;
+import $repository-import;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class $service-class {
+
+    private final $repository-class repository;
+    private final $request-mapper-class requestMapper;
+
+    public $Entity getById($entity-id-type id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("Cannot find $Entity by id %s", id)));
+    }
+
+    public List<$Entity> getAll() {
+        return repository.findAll();
+    }
+
+    public $Entity create($create-request-class request) {
+        $Entity $entity = requestMapper.toEntity(request);
+        return repository.save($entity);
+    }
+
+    public $Entity update($update-request-class request) {
+        $Entity $entity = requestMapper.toEntity(request);
+        return repository.save($entity);
+    }
+
+    public $Entity delete($entity-id-type id) {
+        $Entity $entity = getById(id);
+        repository.delete($entity);
+        return $entity;
+    }
+
+}

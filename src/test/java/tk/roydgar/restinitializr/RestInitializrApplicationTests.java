@@ -2,7 +2,6 @@ package tk.roydgar.restinitializr;
 
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLStatement;
-import org.hibernate.dialect.MySQL8Dialect;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import tk.roydgar.restinitializr.client.SpringInitializrClient;
 import tk.roydgar.restinitializr.model.SpringInitializrParameters;
+import tk.roydgar.restinitializr.service.impl.VelocityTemplateParserService;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -18,6 +18,9 @@ public class RestInitializrApplicationTests {
 
 	@Autowired
 	private SpringInitializrClient client;
+
+	@Autowired
+	private VelocityTemplateParserService templateParserService;
 
 	@Test
 	public void anotherTest(){
@@ -55,10 +58,16 @@ public class RestInitializrApplicationTests {
 
 	}
 
-	@Test
-	public void name() {
-		MySQL8Dialect mySQLDialect = new MySQL8Dialect();
-		System.out.println(mySQLDialect);
-	}
+//	@Test
+//	public void name() throws IOException {
+//		Map<String, Object> context = new HashMap<>();
+//		context.put("repository-package", "repository-package");
+//		context.put("entity-import", "entity-import");
+//		context.put("repository-class", "repository");
+//		context.put("entity-id-type", "Long");
+//		context.put("Entity","Car");
+//		FileUtils.copyInputStreamToFile(templateParserService.parseTemplate(TemplateType.REPOSITORY, context), new File("test.java"));
+//
+//	}
 }
 

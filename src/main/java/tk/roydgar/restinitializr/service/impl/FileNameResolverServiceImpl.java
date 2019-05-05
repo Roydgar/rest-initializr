@@ -10,6 +10,7 @@ import tk.roydgar.restinitializr.config.properties.PackageNamingProperties;
 import tk.roydgar.restinitializr.model.SpringInitializrParameters;
 import tk.roydgar.restinitializr.model.enums.template.TemplateType;
 import tk.roydgar.restinitializr.service.FileNameResolverService;
+import tk.roydgar.restinitializr.util.FormatUtils;
 
 import java.io.File;
 import java.util.Map;
@@ -18,14 +19,14 @@ import java.util.StringJoiner;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class BestPracticedFileNameResolverService implements FileNameResolverService {
+public class FileNameResolverServiceImpl implements FileNameResolverService {
 
     private final PackageNamingProperties packageNamingProperties;
     private final FileSuffixProperties fileSuffixProperties;
     private final FileExtensionProperties fileExtensionProperties;
 
     @Override
-    public String createFor(String entityName, TemplateType templateType, SpringInitializrParameters initializrParameters) {
+    public String resolveFor(String entityName, TemplateType templateType, SpringInitializrParameters initializrParameters) {
         log.debug("Resolving file name for type: {}; entity name: {}", templateType, entityName);
 
         Map<TemplateType, String> typeToPackageNameMap = packageNamingProperties.getTypeToPackageNameMap();
@@ -49,7 +50,7 @@ public class BestPracticedFileNameResolverService implements FileNameResolverSer
 
     private String formatArtifactNameToPackageName(String artifactName) {
         String nameWithSystemSeparator = replaceCustomSeparatorsToSystem(artifactName);
-        return nameWithSystemSeparator.replaceAll("-", "");
+        return FormatUtils.formatArtifactIdToProjectPackage(nameWithSystemSeparator);
     }
 
     private String createFileName(String entityName, TemplateType templateType) {

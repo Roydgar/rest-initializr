@@ -22,8 +22,8 @@ public class TemplatePropertiesTest {
     public void propertiesLoads() {
         softly.assertThat(templateProperties.getTemplatesRelativePath()).isNotNull();
         softly.assertThat(templateProperties.getTemplateExtension()).isNotNull();
-        softly.assertThat(templateProperties.getKeyResolvers()).isNotNull();
-        softly.assertThat(templateProperties.getFileNameResolvers()).isNotNull();
+        softly.assertThat(templateProperties.getTemplateKeyToNameMap()).isNotNull();
+        softly.assertThat(templateProperties.getTemplateTypeToFileNameMap()).isNotNull();
     }
 
 }

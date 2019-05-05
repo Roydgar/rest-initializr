@@ -11,4 +11,7 @@ public class FormatUtils {
         return target.replaceAll(TO_REMOVE_REGEX, "");
     }
 
+    public static String formatArtifactIdToProjectPackage(String artifactId) {
+        return artifactId.replaceAll("-", "");
+    }
 }

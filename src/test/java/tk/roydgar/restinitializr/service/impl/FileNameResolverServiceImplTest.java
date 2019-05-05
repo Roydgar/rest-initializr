@@ -21,7 +21,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class BestPracticedFileNameResolverServiceTest {
+public class FileNameResolverServiceImplTest {
 
     @Autowired
     private PackageNamingProperties packageNamingProperties;
@@ -31,11 +31,11 @@ public class BestPracticedFileNameResolverServiceTest {
     private FileExtensionProperties fileExtensionProperties;
 
     private SpringInitializrParameters initializrParameters;
-    private BestPracticedFileNameResolverService subject;
+    private FileNameResolverServiceImpl subject;
 
     @Before
     public void setUp() {
-        subject = new BestPracticedFileNameResolverService(packageNamingProperties, fileSuffixProperties, fileExtensionProperties);
+        subject = new FileNameResolverServiceImpl(packageNamingProperties, fileSuffixProperties, fileExtensionProperties);
         initializrParameters = new SpringInitializrParameters();
         initializrParameters.setGroupId("me.test");
         initializrParameters.setArtifactId("artifact");
@@ -57,7 +57,7 @@ public class BestPracticedFileNameResolverServiceTest {
                 .toString();
 
 
-        String actual = subject.createFor(entityName, TemplateType.SERVICE, initializrParameters);
+        String actual = subject.resolveFor(entityName, TemplateType.SERVICE, initializrParameters);
 
         assertThat(actual).isEqualTo(expected);
     }

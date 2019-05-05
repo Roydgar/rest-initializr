@@ -1,0 +1,45 @@
+package $controller-package;
+
+import $create-request-import;
+import $update-request-import;
+import $dto-import;
+import $response-mapper-import;
+import $service-import;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+public class $controller-class {
+
+    private final $service-class service;
+    private final $response-mapper-class responseMapper;
+
+    @GetMapping
+    public List<$dto-class> getAll() {
+        return responseMapper.toDtoList(service.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public $dto-class getById(@RequestParam Long id) {
+        return responseMapper.toDto(service.getById(id));
+    }
+
+    @PostMapping
+    public $dto-class create($create-request-class createRequest) {
+        return responseMapper.toDto(service.create(createRequest));
+    }
+
+    @PutMapping
+    public $dto-class update($update-request-class updateRequest) {
+        return responseMapper.toDto(service.update(updateRequest));
+    }
+
+    @DeleteMapping("/{id}")
+    public $dto-class delete(@PathVariable Long id) {
+        return responseMapper.toDto(service.delete(id));
+    }
+
+}

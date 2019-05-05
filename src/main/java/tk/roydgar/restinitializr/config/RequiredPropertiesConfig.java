@@ -21,11 +21,15 @@ public class RequiredPropertiesConfig {
 
     private final static List<TemplateKey> REQUIRED_TEMPLATE_KEY_RESOLVERS;
     private final static List<TemplateType> REQUIRED_TEMPLATE_TYPE_RESOLVERS;
+
     static {
         ArrayList<TemplateType> templateTypes = new ArrayList<>(Arrays.asList(TemplateType.values()));
         templateTypes.remove(TemplateType.UNKNOWN);
 
-        REQUIRED_TEMPLATE_KEY_RESOLVERS = Arrays.asList(TemplateKey.values());
+        List<TemplateKey> templateKeys = new ArrayList<>(Arrays.asList(TemplateKey.values()));
+        templateKeys.remove(TemplateKey.NONE);
+        REQUIRED_TEMPLATE_KEY_RESOLVERS = templateKeys;
+
         REQUIRED_TEMPLATE_TYPE_RESOLVERS = templateTypes;
     }
 
@@ -37,19 +41,19 @@ public class RequiredPropertiesConfig {
     @EventListener(ApplicationReadyEvent.class)
     public void checkRequiredPropertiesArePresent() {
         for (TemplateKey templateKey: REQUIRED_TEMPLATE_KEY_RESOLVERS) {
-            if(templateProperties.getKeyResolvers().get(templateKey) == null) {
+            if(templateProperties.getTemplateKeyToNameMap().get(templateKey) == null) {
                 throw new IllegalStateException(String.format(
                         "%s key resolver must be present in template.properties " +
-                        "like 'keyResolvers.%s = myValue'", templateKey, templateKey));
+                        "like 'templateKeyToNameMap.%s = myValue'", templateKey, templateKey));
             }
         }
 
         for (TemplateType templateType: REQUIRED_TEMPLATE_TYPE_RESOLVERS) {
-//            if (fileExtensionProperties.getTypeToFileExtensionMap().get(templateType) == null) {
-//                throw new IllegalStateException(String.format(
-//                        "%s template type must be present in file-extension.yml " +
-//                                "like 'typeToFileExtensionMap.%s = myValue'", templateType, templateType));
-//            }
+            if (fileExtensionProperties.getTypeToFileExtensionMap().get(templateType) == null) {
+                throw new IllegalStateException(String.format(
+                        "%s template type must be present in file-extension.yml " +
+                                "like 'typeToFileExtensionMap.%s = myValue'", templateType, templateType));
+            }
             if (fileSuffixProperties.getTypeToSuffixMap().get(templateType) == null) {
                 throw new IllegalStateException(String.format(
                         "%s template type must be present in file-suffix.properties " +

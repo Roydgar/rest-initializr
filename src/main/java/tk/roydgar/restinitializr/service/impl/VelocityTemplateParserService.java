@@ -3,19 +3,16 @@ package tk.roydgar.restinitializr.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.stereotype.Service;
 import tk.roydgar.restinitializr.config.properties.TemplateProperties;
 import tk.roydgar.restinitializr.exception.CannotParseTemplateException;
-import tk.roydgar.restinitializr.model.enums.template.TemplateKey;
 import tk.roydgar.restinitializr.model.enums.template.TemplateType;
 import tk.roydgar.restinitializr.service.TemplateParserService;
 
 import java.io.*;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,7 +26,7 @@ public class VelocityTemplateParserService implements TemplateParserService {
 
     @Override
     @SneakyThrows
-    public InputStream parseTemplate(TemplateType templateType, Map<TemplateKey, String> contextContent) {
+    public InputStream parseTemplate(TemplateType templateType, Map<String, Object> contextContent) {
         String templatePath = resolveTemplateRelativePath(templateType);
         log.debug("Resolving template {}", templatePath);
         VelocityContext velocityContext = prepareContext(contextContent);
@@ -51,19 +48,17 @@ public class VelocityTemplateParserService implements TemplateParserService {
         }
     }
 
-    private VelocityContext prepareContext(Map<TemplateKey, String> contextContent) {
+    private VelocityContext prepareContext(Map<String, Object> contextContent) {
         VelocityContext context = new VelocityContext();
-        Map<TemplateKey, String> propertyKeyResolvers = templateProperties.getKeyResolvers();
 
-        contextContent.forEach((key, value) -> context.put(propertyKeyResolvers.get(key), value));
+        contextContent.forEach(context::put);
         return context;
     }
 
     private String resolveTemplateRelativePath(TemplateType templateType) {
-        return File.separator
-                + templateProperties.getTemplatesRelativePath()
+        return  templateProperties.getTemplatesRelativePath()
                 + File.separator
-                + templateProperties.getFileNameResolvers().get(templateType)
+                + templateProperties.getTemplateTypeToFileNameMap().get(templateType)
                 + "."
                 + templateProperties.getTemplateExtension();
     }

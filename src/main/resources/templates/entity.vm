@@ -1,0 +1,32 @@
+package $entity-package;
+
+#foreach($column in $sql-table.getColumns())
+    #if($column.isImportNeeded())
+$column.getJavaType().getImportPath();
+    #end
+#end
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Getter
+@Setter
+@Entity
+@Table(name = $sql-table.getName()
+public class CustomEntity {
+
+    #foreach($column in $sql-table.getColumns())
+        #if ($column.isPrimaryKey())
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "$entity_id")
+        #else
+    @Column
+        #end
+    private $column.getJavaType().getLabel() $column.getName();
+
+    #end
+
+}

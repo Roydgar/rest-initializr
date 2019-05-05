@@ -1,7 +1,6 @@
 package tk.roydgar.restinitializr.service.impl;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -27,7 +26,6 @@ import tk.roydgar.restinitializr.model.enums.template.TemplateType;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,7 +61,7 @@ public class VelocityTemplateParserServiceTest {
 
     @Test
     public void parseTemplate_whenTemplateIsPresentAndCorrect_returnsTemplateMergingResult() throws IOException{
-        Map<TemplateKey, String> contextContent = Collections.singletonMap(TemplateKey.ENTITY, "test");
+        Map<String, Object> contextContent = Collections.singletonMap("entity", "test");
         String expectedResult = "testResult";
 
         Template template = mock(Template.class);
@@ -83,9 +81,8 @@ public class VelocityTemplateParserServiceTest {
 
     @Test
     public void parseTemplate_whenTemplateIsPresentAndCorrect_preparesContext() {
-        Map<TemplateKey, String> contextContent = Collections.singletonMap(TemplateKey.ENTITY, "test");
-        String entityKey = templateProperties.getKeyResolvers().get(TemplateKey.ENTITY);
-        Map<TemplateKey, String> keyResolvers = templateProperties.getKeyResolvers();
+        Map<String, Object> contextContent = Collections.singletonMap("entity", "test");
+        String entityKey = templateProperties.getTemplateKeyToNameMap().get(TemplateKey.ENTITY);
 
         Template template = mock(Template.class);
         when(velocityEngine.getTemplate(anyString())).thenReturn(template);
@@ -114,7 +111,7 @@ public class VelocityTemplateParserServiceTest {
                 File.separator
                 + templateProperties.getTemplatesRelativePath()
                 + File.separator
-                + templateProperties.getFileNameResolvers().get(TemplateType.SERVICE)
+                + templateProperties.getTemplateTypeToFileNameMap().get(TemplateType.SERVICE)
                 + "."
                 + templateProperties.getTemplateExtension()
         );

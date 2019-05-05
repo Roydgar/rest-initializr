@@ -4,8 +4,6 @@ package tk.roydgar.restinitializr.config.properties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.annotation.Validated;
 import tk.roydgar.restinitializr.model.enums.template.TemplateKey;
 import tk.roydgar.restinitializr.model.enums.template.TemplateType;
@@ -24,10 +22,12 @@ public class TemplateProperties {
     private String templatesRelativePath;
     @NotBlank
     private String templateExtension;
+    @NotBlank
+    private String templateTypeDynamicPlaceholder;
 
     @NotEmpty
-    private Map<TemplateKey,@NotBlank String> keyResolvers;
+    private Map<TemplateKey,@NotBlank String> templateKeyToNameMap;
     @NotEmpty
-    private Map<TemplateType,@NotBlank String> fileNameResolvers;
+    private Map<TemplateType,@NotBlank String> templateTypeToFileNameMap;
 
 }

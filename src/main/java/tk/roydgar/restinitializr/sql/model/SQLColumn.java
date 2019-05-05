@@ -1,7 +1,6 @@
 package tk.roydgar.restinitializr.sql.model;
 
 import lombok.Data;
-import tk.roydgar.restinitializr.config.properties.sql.MySQLTypeMappingProperties;
 import tk.roydgar.restinitializr.model.JavaType;
 
 @Data

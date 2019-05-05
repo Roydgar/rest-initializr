@@ -10,4 +10,8 @@ public class JavaType {
     private String importPath;
     private boolean isPrimitive;
     private boolean isLang;
+
+    public boolean isImportNeeded() {
+        return !isPrimitive && !isLang;
+    }
 }

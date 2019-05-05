@@ -1,0 +1,11 @@
+package $repository-package;
+
+import $entity-import;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+public interface $repository-class  extends CrudRepository<$Entity, $entity-id-type> {
+    @Override
+    List<$Entity> findAll();
+}

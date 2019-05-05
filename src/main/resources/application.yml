@@ -8,25 +8,44 @@ file-extension:
     SERVICE: java
     ENTITY: java
     DTO: java
+    CREATE_REQUEST: java
+    UPDATE_REQUEST: java
+    REQUEST_MAPPER: java
+    RESPONSE_MAPPER: java
     EXCEPTION: java
     CONTROLLER_ADVICE: java
     CONTROLLER: java
-    APPLICATION: java
-    APPLICATION_PROPERTIES: java
     CONFIGURATION: java
+
+file-naming-dependencies:
+  templateTypeTemplateKeyMap:
+    REPOSITORY: ENTITY
+    SERVICE: ENTITY
+    ENTITY: ENTITY
+    DTO: ENTITY
+    CREATE_REQUEST: ENTITY
+    UPDATE_REQUEST: ENTITY
+    REQUEST_MAPPER: ENTITY
+    RESPONSE_MAPPER: ENTITY
+    EXCEPTION: NONE
+    CONTROLLER_ADVICE: NONE
+    CONTROLLER: ENTITY
+    CONFIGURATION: NONE
 
 file-suffix:
   typeToSuffixMap:
-    REPOSITORY: repository
-    SERVICE: service
+    REPOSITORY: Repository
+    SERVICE: Service
     ENTITY:
-    DTO: dto
-    EXCEPTION: exception
-    CONTROLLER_ADVICE: advice
-    CONTROLLER: controller
-    APPLICATION: application
-    APPLICATION_PROPERTIES: properties
-    CONFIGURATION: config
+    DTO: Dto
+    CREATE_REQUEST: CreateRequest
+    UPDATE_REQUEST: UpdateRequest
+    REQUEST_MAPPER: RequestMapper
+    RESPONSE_MAPPER: ResponceMapper
+    EXCEPTION: ResourceNotFoundException
+    CONTROLLER_ADVICE: ResourceExceptionHandler
+    CONTROLLER: Controller
+    CONFIGURATION: AppConfig
 
 package-naming:
   default-project-path: src.main.java
@@ -35,31 +54,56 @@ package-naming:
   typeToPackageNameMap:
     REPOSITORY: repository
     SERVICE: service
-    ENTITY: entity
-    DTO: dto
+    ENTITY: domain
+    DTO: domain.dto.response
+    CREATE_REQUEST:  domain.dto.request
+    UPDATE_REQUEST:  domain.dto.request
+    REQUEST_MAPPER:  mapper.request
+    RESPONSE_MAPPER:  mapper.response
     EXCEPTION: exception
-    CONTROLLER_ADVICE: advice
+    CONTROLLER_ADVICE: controller.advice
     CONTROLLER: controller
-    APPLICATION:
-    APPLICATION_PROPERTIES: properties
     CONFIGURATION: config
 
 template:
   templatesRelativePath: templates
-  templateExtension: template
+  templateExtension: vm
+  templateTypeDynamicPlaceholder: template-type
 
-  keyResolvers.ENTITY: entity
-  keyResolvers.ENTITY_CAPITALIZED: Entity
-  keyResolvers.IMPORT: import
-  keyResolvers.SQL_TABLE: sqlTable
+  templateKeyToNameMap:
+    ENTITY: entity
+    ENTITY_CAPITALIZED: Entity
+    ENTITY_ID_TYPE: entity-id-type
+    IMPORT: ${templateTypeDynamicPlaceholder}-import
+    PACKAGE: ${templateTypeDynamicPlaceholder}-package
+    CLASS_NAME: ${templateTypeDynamicPlaceholder}-class
+    SQL_TABLE: sql-table
 
-  fileNameResolvers.REPOSITORY:  repository
-  fileNameResolvers.SERVICE:  service
-  fileNameResolvers.ENTITY:  entity
-  fileNameResolvers.DTO:  dto
-  fileNameResolvers.EXCEPTION:  exception
-  fileNameResolvers.CONTROLLER_ADVICE:  conrollerAdvice
-  fileNameResolvers.CONTROLLER:  controller
-  fileNameResolvers.APPLICATION:  application
-  fileNameResolvers.APPLICATION_PROPERTIES:  properties
-  fileNameResolvers.CONFIGURATION:  config
+  templateTypeToFileNameMap:
+    REPOSITORY: repository
+    SERVICE: service
+    ENTITY: entity
+    DTO: dto
+    CREATE_REQUEST: createRequest
+    UPDATE_REQUEST: updateRequest
+    REQUEST_MAPPER: requestMappet
+    RESPONSE_MAPPER: responseMapper
+    EXCEPTION: exception
+    CONTROLLER_ADVICE: conrollerAdvice
+    CONTROLLER: controller
+    CONFIGURATION: config
+
+template-type-labels:
+  templateTypeToLabelMap:
+    REPOSITORY: repository
+    SERVICE: service
+    ENTITY: entity
+    DTO: dto
+    CREATE_REQUEST: create-request
+    UPDATE_REQUEST: update-request
+    REQUEST_MAPPER: request-mapper
+    RESPONSE_MAPPER: response-mapper
+    EXCEPTION: exception
+    CONTROLLER_ADVICE: controller-advice
+    CONTROLLER: controller
+    CONFIGURATION: config

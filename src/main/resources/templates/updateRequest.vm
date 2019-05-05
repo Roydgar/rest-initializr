@@ -1,0 +1,21 @@
+package $update-request-package;
+
+#foreach($column in $sql-table.getColumns())
+    #if($column.isImportNeeded())
+$column.getJavaType().getImportPath();
+    #end
+#end
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class $update-request-class extends $create-request-class {
+
+    #foreach($column in $sql-table.getColumns())
+        #if($column.isPrimaryKey() == true)
+    private $column.getJavaType().getLabel() $column.getName();
+        #end
+    #end
+}

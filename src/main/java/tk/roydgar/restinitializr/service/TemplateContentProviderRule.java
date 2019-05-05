@@ -5,8 +5,6 @@ import tk.roydgar.restinitializr.sql.model.SQLTable;
 
 import java.util.Map;
 
-public interface TemplateContentProviderService {
-
-    Map<String, Object> createContextContent(SpringInitializrParameters springInitializrParameters, SQLTable sqlTable);
-
+public interface TemplateContentProviderRule {
+    Map<String, Object> resolveContent(SpringInitializrParameters springInitializrParameters, SQLTable sqlTable);
 }

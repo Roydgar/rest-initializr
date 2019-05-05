@@ -5,6 +5,6 @@ import tk.roydgar.restinitializr.model.enums.template.TemplateType;
 
 public interface FileNameResolverService {
 
-    String createFor(String entityName, TemplateType templateType, SpringInitializrParameters initializrProperties);
+    String resolveFor(String entityName, TemplateType templateType, SpringInitializrParameters initializrProperties);
 
 }
