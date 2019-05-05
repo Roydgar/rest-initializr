@@ -8,10 +8,8 @@ import lombok.Setter;
 public class JavaType {
     private String label;
     private String importPath;
-    private boolean isPrimitive;
-    private boolean isLang;
 
     public boolean isImportNeeded() {
-        return !isPrimitive && !isLang;
+        return importPath != null && !importPath.contains(".lang.");
     }
 }

@@ -5,180 +5,128 @@ mysql:
       javaType:
         label: Boolean
         importPath: java.lang.Boolean
-        isPrimitive: false
-        isLang: true
     tinyint:
       typeClassification: NUMERIC
       javaType:
         label: Integer
         importPath: java.lang.Integer
-        isPrimitive: false
-        isLang: true
     bool:
       typeClassification: BOOLEAN
       javaType:
         label: Boolean
         importPath: java.lang.Boolean
-        isPrimitive: false
-        isLang: true
     boolean:
       typeClassification: BOOLEAN
       javaType:
         label: Boolean
         importPath: java.lang.Boolean
-        isPrimitive: false
-        isLang: true
     smallint:
       typeClassification: NUMERIC
       javaType:
         label: Integer
         importPath: java.lang.Integer
-        isPrimitive: false
-        isLang: true
     mediumint:
       typeClassification: NUMERIC
       javaType:
         label: Integer
         importPath: java.lang.Integer
-        isPrimitive: false
-        isLang: true
     int:
       typeClassification: NUMERIC
       javaType:
         label: Integer
         importPath: java.lang.Integer
-        isPrimitive: false
-        isLang: true
     integer:
       typeClassification: NUMERIC
       javaType:
         label: Integer
         importPath: java.lang.Integer
-        isPrimitive: false
-        isLang: true
     bigint:
       typeClassification: NUMERIC
       javaType:
         label: Long
         importPath: java.lang.Long
-        isPrimitive: false
-        isLang: true
     decimal:
       typeClassification: NUMERIC
       javaType:
         label: BigDecimal
         importPath: java.math.BigDecimal
-        isPrimitive: false
-        isLang: false
     float:
       typeClassification: NUMERIC
       javaType:
         label: Double
         importPath: java.lang.Double
-        isPrimitive: false
-        isLang: true
     double:
       typeClassification: NUMERIC
       javaType:
         label: Double
         importPath: java.lang.Double
-        isPrimitive: false
-        isLang: true
     date:
       typeClassification: DATE
       javaType:
         label: LocalDate
         importPath: java.time.LocalDate
-        isPrimitive: false
-        isLang: false
     datetime:
       typeClassification: DATETIME
       javaType:
         label: LocalDateTime
         importPath: java.time.LocalDateTime
-        isPrimitive: false
-        isLang: false
     timestamp:
       typeClassification: DATETIME
       javaType:
         label: LocalDateTime
         importPath: java.time.LocalDateTime
-        isPrimitive: false
-        isLang: false
     time:
       typeClassification: TIME
       javaType:
         label: LocalTime
         importPath: java.time.LocalTime
-        isPrimitive: false
-        isLang: false
     char:
       typeClassification: TEXT
       javaType:
         label: String
         importPath: java.lang.String
-        isPrimitive: false
-        isLang: true
     varchar:
       typeClassification: TEXT
       javaType:
         label: String
         importPath: java.lang.String
-        isPrimitive: false
-        isLang: true
     binary:
       typeClassification: BINARY
       javaType:
         label: byte[]
         importPath:
-        isPrimitive: true
-        isLang:
     varbinary:
       typeClassification: BINARY
       javaType:
         label: byte[]
         importPath:
-        isPrimitive: true
-        isLang:
     tinyblob:
       typeClassification: BINARY
       javaType:
         label: byte[]
         importPath:
-        isPrimitive: true
-        isLang:
     blob:
       typeClassification: BINARY
       javaType:
         label: byte[]
         importPath:
-        isPrimitive: true
-        isLang:
     mediumblob:
       typeClassification: BINARY
       javaType:
         label: byte[]
         importPath:
-        isPrimitive: true
-        isLang:
     longblob:
       typeClassification: BINARY
       javaType:
         label: byte[]
         importPath:
-        isPrimitive: true
-        isLang:
     enum:
       typeClassification: ENUM
       javaType:
         label: Object
         importPath:
-        isPrimitive: false
-        isLang:
     set:
       typeClassification: SET
       javaType:
         label: Object
         importPath:
-        isPrimitive: false
-        isLang:
