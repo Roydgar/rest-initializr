@@ -72,7 +72,7 @@ public class VelocityTemplateParserServiceTest {
             return null;
         }).when(template).merge(ArgumentMatchers.any(VelocityContext.class), ArgumentMatchers.any(Writer.class));
 
-        InputStream actual = subject.parseTemplate(TemplateType.UNKNOWN, contextContent);
+        InputStream actual = subject.parseTemplate(TemplateType.SERVICE, contextContent);
         String actualAsString = IOUtils.toString(actual, Charset.defaultCharset());
 
         verify(template).merge(ArgumentMatchers.any(VelocityContext.class), ArgumentMatchers.any(StringWriter.class));
@@ -88,7 +88,7 @@ public class VelocityTemplateParserServiceTest {
         when(velocityEngine.getTemplate(anyString())).thenReturn(template);
         doNothing().when(template).merge(ArgumentMatchers.any(VelocityContext.class), ArgumentMatchers.any(Writer.class));
 
-        subject.parseTemplate(TemplateType.UNKNOWN, contextContent);
+        subject.parseTemplate(TemplateType.SERVICE, contextContent);
 
         verify(template).merge(velocityContextCaptor.capture(), ArgumentMatchers.any(StringWriter.class));
         VelocityContext actualContext = velocityContextCaptor.getValue();
@@ -124,7 +124,7 @@ public class VelocityTemplateParserServiceTest {
         expectedException.expect(CannotParseTemplateException.class);
         expectedException.expectMessage(" Cannot parse or find template in path: \\templates\\null.template");
 
-        subject.parseTemplate(TemplateType.UNKNOWN, Collections.emptyMap());
+        subject.parseTemplate(TemplateType.SERVICE, Collections.emptyMap());
     }
 
 }

@@ -1,6 +1,6 @@
 package $controller-advice-package;
 
-import $exception-package;
+import $exception-import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class $controller-advice-class {
 
-    @ExceptionHandler($exception-class.class)
+    @ExceptionHandler(${exception-class}.class)
     private ResponseEntity resourceNotFound($exception-class exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }

@@ -1,0 +1,13 @@
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: create
+    datasource:
+        url: ${datasource-url}
+        username: ${datasource-username}
+        password: ${datasource-password}
+        driverClassName: ${datasource-driver}
+
+server:
+    port:
+        ${server-port}

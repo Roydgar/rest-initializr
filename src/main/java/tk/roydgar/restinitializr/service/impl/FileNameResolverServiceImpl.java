@@ -28,7 +28,44 @@ public class FileNameResolverServiceImpl implements FileNameResolverService {
     @Override
     public String resolveFor(String entityName, TemplateType templateType, SpringInitializrParameters initializrParameters) {
         log.debug("Resolving file name for type: {}; entity name: {}", templateType, entityName);
+        String path = resolvePath(templateType, initializrParameters);
 
+        return new StringJoiner(File.separator)
+                .add(path)
+                .add(createFileName(entityName, templateType))
+                .toString();
+    }
+
+    @Override
+    public String resolveForResource(TemplateType templateType, SpringInitializrParameters initializrParameters) {
+        return new StringJoiner(File.separator)
+                .add(replaceCustomSeparatorsToSystem(initializrParameters.getArtifactId()))
+                .add(replaceCustomSeparatorsToSystem(packageNamingProperties.getResourcesPath()))
+                .add(createFileName(templateType))
+                .toString();
+    }
+
+    @Override
+    public String resolveApplicationPropertiesPath(SpringInitializrParameters initializrParameters) {
+        return new StringJoiner(File.separator)
+                .add(replaceCustomSeparatorsToSystem(initializrParameters.getArtifactId()))
+                .add(replaceCustomSeparatorsToSystem(packageNamingProperties.getResourcesPath()))
+                .add("application.properties")
+                .toString();
+    }
+
+    @Override
+    public String resolveFor(TemplateType templateType, SpringInitializrParameters initializrParameters) {
+        log.debug("Resolving file name for type: {}", templateType);
+        String path = resolvePath(templateType, initializrParameters);
+
+        return new StringJoiner(File.separator)
+                .add(path)
+                .add(createFileName(templateType))
+                .toString();
+    }
+
+    private String resolvePath(TemplateType templateType, SpringInitializrParameters initializrParameters) {
         Map<TemplateType, String> typeToPackageNameMap = packageNamingProperties.getTypeToPackageNameMap();
         StringJoiner joiner = new StringJoiner(File.separator);
 
@@ -38,7 +75,6 @@ public class FileNameResolverServiceImpl implements FileNameResolverService {
                 .add(replaceCustomSeparatorsToSystem(initializrParameters.getGroupId()))
                 .add(formatArtifactNameToPackageName(initializrParameters.getArtifactId()))
                 .add(replaceCustomSeparatorsToSystem(typeToPackageNameMap.get(templateType)))
-                .add(createFileName(entityName, templateType))
                 .toString();
     }
 
@@ -54,13 +90,17 @@ public class FileNameResolverServiceImpl implements FileNameResolverService {
     }
 
     private String createFileName(String entityName, TemplateType templateType) {
+        String formattedEntityName = StringUtils.capitalize(entityName.toLowerCase());
+        return formattedEntityName + createFileName(templateType);
+    }
+
+    private String createFileName(TemplateType templateType) {
         String suffix = fileSuffixProperties.getTypeToSuffixMap().get(templateType);
         String extension = fileExtensionProperties.getTypeToFileExtensionMap().get(templateType);
 
-        String formattedSuffix = StringUtils.capitalize(suffix.toLowerCase());
-        String formattedEntityName = StringUtils.capitalize(entityName.toLowerCase());
+        String formattedSuffix = StringUtils.capitalize(suffix);
 
-        return formattedEntityName + formattedSuffix + "." + extension;
+        return formattedSuffix + "." + extension;
     }
 
 }

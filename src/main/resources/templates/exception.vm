@@ -1,0 +1,7 @@
+package $exception-package;
+
+public class $exception-class  extends RuntimeException {
+    public $exception-class(String message) {
+        super(message);
+    }
+}

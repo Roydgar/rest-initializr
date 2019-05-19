@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.FileHeader;
 import net.lingala.zip4j.model.UnzipParameters;
 import net.lingala.zip4j.model.ZipParameters;
 import org.apache.commons.io.FileUtils;
@@ -48,6 +49,26 @@ public class ExtendableZipFile implements AutoCloseable {
         zipParameters.setFileNameInZip(fileName);
 
         zipFile.addStream(fileStream, zipParameters);
+    }
+
+    public void addFileToZip(String fileNameInZip, File file) throws ZipException{
+        log.debug("Adding new file to zip: {}", file.getName());
+
+        ZipParameters zipParameters = new ZipParameters();
+        zipParameters.setSourceExternalStream(true);
+        zipParameters.setFileNameInZip(fileNameInZip);
+
+        zipFile.addFile(file, zipParameters);
+    }
+
+    public void removeFromZip(String fileName) throws ZipException {
+        zipFile.removeFile(fileName);
+    }
+
+    public void extractFile(String fileName, String location) throws ZipException {
+        FileHeader fileHeader = new FileHeader();
+        fileHeader.setFileName(fileName);
+        zipFile.extractFile(fileHeader, location);
     }
 
     public byte[] toByteArray() throws IOException {

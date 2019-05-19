@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import tk.roydgar.restinitializr.config.properties.TemplateProperties;
 import tk.roydgar.restinitializr.model.SpringInitializrParameters;
 import tk.roydgar.restinitializr.model.enums.template.TemplateKey;
-import tk.roydgar.restinitializr.service.TemplateContentProviderRule;
+import tk.roydgar.restinitializr.service.rule.TemplateContentProviderRule;
 import tk.roydgar.restinitializr.sql.model.SQLTable;
 
 import java.util.HashMap;

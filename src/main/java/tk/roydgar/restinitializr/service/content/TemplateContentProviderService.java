@@ -1,4 +1,4 @@
-package tk.roydgar.restinitializr.service;
+package tk.roydgar.restinitializr.service.content;
 
 import tk.roydgar.restinitializr.model.SpringInitializrParameters;
 import tk.roydgar.restinitializr.sql.model.SQLTable;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("$entity")
 @RequiredArgsConstructor
 public class $controller-class {
 
@@ -23,7 +24,7 @@ public class $controller-class {
     }
 
     @GetMapping("/{id}")
-    public $dto-class getById(@RequestParam Long id) {
+    public $dto-class getById(@PathVariable $entity-id-type id) {
         return responseMapper.toDto(service.getById(id));
     }
 
@@ -38,7 +39,7 @@ public class $controller-class {
     }
 
     @DeleteMapping("/{id}")
-    public $dto-class delete(@PathVariable Long id) {
+    public $dto-class delete(@PathVariable $entity-id-type id) {
         return responseMapper.toDto(service.delete(id));
     }
 

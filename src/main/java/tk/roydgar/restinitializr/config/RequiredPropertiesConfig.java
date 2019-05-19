@@ -24,7 +24,6 @@ public class RequiredPropertiesConfig {
 
     static {
         ArrayList<TemplateType> templateTypes = new ArrayList<>(Arrays.asList(TemplateType.values()));
-        templateTypes.remove(TemplateType.UNKNOWN);
 
         List<TemplateKey> templateKeys = new ArrayList<>(Arrays.asList(TemplateKey.values()));
         templateKeys.remove(TemplateKey.NONE);

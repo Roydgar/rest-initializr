@@ -14,5 +14,5 @@ public enum TemplateType {
     CONTROLLER_ADVICE,
     CONTROLLER,
     CONFIGURATION,
-    UNKNOWN
+    PROPERTIES
 }

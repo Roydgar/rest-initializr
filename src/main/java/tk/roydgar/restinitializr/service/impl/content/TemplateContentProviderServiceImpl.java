@@ -1,18 +1,18 @@
-package tk.roydgar.restinitializr.service.impl;
+package tk.roydgar.restinitializr.service.impl.content;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tk.roydgar.restinitializr.model.SpringInitializrParameters;
-import tk.roydgar.restinitializr.service.TemplateContentProviderRule;
-import tk.roydgar.restinitializr.service.TemplateContentProviderService;
+import tk.roydgar.restinitializr.service.content.TemplateContentProviderService;
+import tk.roydgar.restinitializr.service.rule.TemplateContentProviderRule;
 import tk.roydgar.restinitializr.sql.model.SQLTable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
+@Service
 @Slf4j
 @RequiredArgsConstructor
 public class TemplateContentProviderServiceImpl implements TemplateContentProviderService {

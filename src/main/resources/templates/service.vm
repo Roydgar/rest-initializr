@@ -1,5 +1,6 @@
 package $service-package;
 
+import org.springframework.transaction.annotation.Transactional;
 import $entity-import;
 import $create-request-import;
 import $update-request-import;
@@ -38,6 +39,7 @@ public class $service-class {
         return repository.save($entity);
     }
 
+    @Transactional
     public $Entity delete($entity-id-type id) {
         $Entity $entity = getById(id);
         repository.delete($entity);

@@ -14,8 +14,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = $sql-table.getName()
-public class CustomEntity {
+@Table(name = "$sql-table.getName()")
+public class $entity-class {
 
     #foreach($column in $sql-table.getColumns())
         #if ($column.isPrimaryKey())

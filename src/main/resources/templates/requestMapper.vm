@@ -1,4 +1,4 @@
-package $request-mapper-import;
+package $request-mapper-package;
 
 import $entity-import;
 import $create-request-import;

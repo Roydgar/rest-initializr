@@ -39,7 +39,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQueries_parsesColumnWithNameAndType() {
         String query = "CREATE TABLE table_name (column_name VARCHAR)";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -62,7 +62,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQueries_parsesNotNullConstraint() {
         String query = "CREATE TABLE table_name (column_name VARCHAR NOT NULL)";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -85,7 +85,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQueries_parsesAutoIncrementConstraint() {
         String query = "CREATE TABLE table_name (column_name VARCHAR AUTO_INCREMENT)";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -108,7 +108,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQueries_parsesUniqueConstraint() {
         String query = "CREATE TABLE table_name (column_name VARCHAR UNIQUE)";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -131,7 +131,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQueries_parsesPrimaryKeyConstraint() {
         String query = "CREATE TABLE table_name (column_name VARCHAR PRIMARY KEY)";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -154,7 +154,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQueries_parsesDefaultValueConstraint() {
         String query = "CREATE TABLE table_name (column_name VARCHAR DEFAULT 'default_value')";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -181,7 +181,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
                 "    PRIMARY KEY (column_name)\n" +
                 ");";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -204,7 +204,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQuery_parsesColumnLength() {
         String query = "CREATE TABLE table_name (column_name VARCHAR(10))";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -227,7 +227,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQuery_parsesColumnPrecision() {
         String query = "CREATE TABLE table_name (column_name DOUBLE(10))";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -250,7 +250,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQuery_truncatesQuotes() {
         String query = "CREATE TABLE 'table_name' (`column_name` DOUBLE(10))";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -273,7 +273,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQuery_parsesColumnPrecisionAndScale() {
         String query = "CREATE TABLE table_name (column_name DOUBLE(10, 10))";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
 
         assertThat(sqlTable.getColumns()).hasSize(1);
         SQLColumn sqlColumn = sqlTable.getColumns().get(0);
@@ -295,7 +295,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
     public void parseCreateQuery_parsesEnumDefinitions() {
         String query = "CREATE TABLE table_name (column_name ENUM('value_1', 'value_2'))";
 
-        SQLTable sqlTable = subject.parseCreateQuery(query, DATABASE_TYPE, SQL_DIALECT);
+        SQLTable sqlTable = subject.parseCreateQuery(query, SQL_DIALECT);
         assertThat(sqlTable.getColumns()).hasSize(1);
         assertThat(sqlTable.getEnums()).hasSize(1);
 
@@ -327,6 +327,6 @@ public class SQLCreateTableParserServiceIntegrationTest {
         String incorrectQuery = "CREATE TABLE test id INT, name VARCHAR)";
 
         expectedException.expect(ParserException.class);
-        subject.parseCreateQuery(incorrectQuery, DATABASE_TYPE, SQL_DIALECT);
+        subject.parseCreateQuery(incorrectQuery, SQL_DIALECT);
     }
 }

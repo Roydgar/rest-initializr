@@ -2,6 +2,9 @@ spring.profiles.include:
   - 'mysql'
   - 'validation'
 
+zip-file:
+  tempDir: temp
+
 file-extension:
   typeToFileExtensionMap:
     REPOSITORY: java
@@ -16,6 +19,7 @@ file-extension:
     CONTROLLER_ADVICE: java
     CONTROLLER: java
     CONFIGURATION: java
+    PROPERTIES: yml
 
 file-naming-dependencies:
   templateTypeTemplateKeyMap:
@@ -31,6 +35,7 @@ file-naming-dependencies:
     CONTROLLER_ADVICE: NONE
     CONTROLLER: ENTITY
     CONFIGURATION: NONE
+    PROPERTIES: NONE
 
 file-suffix:
   typeToSuffixMap:
@@ -41,14 +46,16 @@ file-suffix:
     CREATE_REQUEST: CreateRequest
     UPDATE_REQUEST: UpdateRequest
     REQUEST_MAPPER: RequestMapper
-    RESPONSE_MAPPER: ResponceMapper
+    RESPONSE_MAPPER: ResponseMapper
     EXCEPTION: ResourceNotFoundException
     CONTROLLER_ADVICE: ResourceExceptionHandler
     CONTROLLER: Controller
     CONFIGURATION: AppConfig
+    PROPERTIES: application
 
 package-naming:
   default-project-path: src.main.java
+  resources-path: src.main.resources
   custom-package-separator: .
 
   typeToPackageNameMap:
@@ -64,6 +71,7 @@ package-naming:
     CONTROLLER_ADVICE: controller.advice
     CONTROLLER: controller
     CONFIGURATION: config
+    PROPERTIES:
 
 template:
   templatesRelativePath: templates
@@ -74,10 +82,15 @@ template:
     ENTITY: entity
     ENTITY_CAPITALIZED: Entity
     ENTITY_ID_TYPE: entity-id-type
-    IMPORT: ${templateTypeDynamicPlaceholder}-import
-    PACKAGE: ${templateTypeDynamicPlaceholder}-package
-    CLASS_NAME: ${templateTypeDynamicPlaceholder}-class
+    IMPORT: template-type-import
+    PACKAGE: template-type-package
+    CLASS_NAME: template-type-class
     SQL_TABLE: sql-table
+    DATASOURCE_URL: datasource-url
+    DATASOURCE_USERNAME: datasource-username
+    DATASOURCE_PASSWORD: datasource-password
+    DATASOURCE_DRIVER_CLASSNAME: datasource-driver
+    SERVER_PORT: server-port
 
   templateTypeToFileNameMap:
     REPOSITORY: repository
@@ -86,12 +99,13 @@ template:
     DTO: dto
     CREATE_REQUEST: createRequest
     UPDATE_REQUEST: updateRequest
-    REQUEST_MAPPER: requestMappet
+    REQUEST_MAPPER: requestMapper
     RESPONSE_MAPPER: responseMapper
     EXCEPTION: exception
-    CONTROLLER_ADVICE: conrollerAdvice
+    CONTROLLER_ADVICE: controllerAdvice
     CONTROLLER: controller
     CONFIGURATION: config
+    PROPERTIES: properties
 
 template-type-labels:
   templateTypeToLabelMap:
@@ -107,3 +121,27 @@ template-type-labels:
     CONTROLLER_ADVICE: controller-advice
     CONTROLLER: controller
     CONFIGURATION: config
+    PROPERTIES: application
+
+automation-build:
+  mavenDependencies:
+    -
+      >
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+          </dependency>
+    -
+      >
+        <dependency>
+          <groupId>io.springfox</groupId>
+          <artifactId>springfox-swagger-ui</artifactId>
+          <version>2.9.2</version>
+        </dependency>
+
+
+
+
+
+

@@ -29,8 +29,17 @@ public class ImportResolverServiceImpl implements ImportResolverService {
     }
 
     @Override
-    public String resolvePackage(TemplateType templateType, SpringInitializrParameters initializrProperties) {
+    public String resolveImport(TemplateType templateType, SpringInitializrParameters initializrProperties) {
         return new StringJoiner("")
+                .add(resolvePackage(templateType, initializrProperties))
+                .add(".")
+                .add(fileSuffixProperties.getTypeToSuffixMap().get(templateType))
+                .toString();
+    }
+
+    @Override
+    public String resolvePackage(TemplateType templateType, SpringInitializrParameters initializrProperties) {
+        return new StringJoiner(".")
                 .add(initializrProperties.getGroupId())
                 .add(FormatUtils.formatArtifactIdToProjectPackage(initializrProperties.getArtifactId()))
                 .add(packageNamingProperties.getTypeToPackageNameMap().get(templateType))

@@ -8,10 +8,11 @@ import tk.roydgar.restinitializr.model.SpringInitializrParameters;
 import tk.roydgar.restinitializr.model.enums.template.TemplateKey;
 import tk.roydgar.restinitializr.model.enums.template.TemplateType;
 import tk.roydgar.restinitializr.service.ImportResolverService;
-import tk.roydgar.restinitializr.service.TemplateContentProviderRule;
+import tk.roydgar.restinitializr.service.rule.TemplateContentProviderRule;
 import tk.roydgar.restinitializr.sql.model.SQLTable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -21,6 +22,7 @@ public class PackageTemplateContentProviderRule implements TemplateContentProvid
     private final ImportResolverService importResolverService;
     private final TemplateProperties templateProperties;
     private final TemplateTypeLabelsProperties templateTypeLabelsProperties;
+    private final List<TemplateType> dynamicTemplateTypes;
 
     @Override
     public Map<String, Object> resolveContent(SpringInitializrParameters springInitializrParameters, SQLTable sqlTable) {
@@ -32,7 +34,7 @@ public class PackageTemplateContentProviderRule implements TemplateContentProvid
 
         Map<String, Object> contextContent = new HashMap<>();
 
-        for (TemplateType templateType : TemplateType.values()) {
+        for (TemplateType templateType : dynamicTemplateTypes) {
             String importPath = importResolverService.resolvePackage(templateType, springInitializrParameters);
             contextContent.put(String.format(importFormat, templateTypeToLabelMap.get(templateType)), importPath);
         }

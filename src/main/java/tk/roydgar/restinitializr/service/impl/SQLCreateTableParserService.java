@@ -20,10 +20,10 @@ public class SQLCreateTableParserService implements SQLParserService {
     private final List<SQLTableVisitor> queryProcessingVisitors;
 
     @Override
-    public SQLTable parseCreateQuery(String query, String sqlType, SQLDialect sqlDialect) {
-        log.debug("Parsing sql query: {} for sql type: {}", query, sqlType);
+    public SQLTable parseCreateQuery(String query, SQLDialect sqlDialect) {
+        log.debug("Parsing sql query: {} for sql type: {}", query, sqlDialect.getJdbcConstantName());
 
-        SQLStatement sqlStatement = SQLUtils.parseSingleStatement(query, sqlType);
+        SQLStatement sqlStatement = SQLUtils.parseSingleStatement(query, sqlDialect.getJdbcConstantName());
         SQLTable sqlTable = new SQLTable();
 
         queryProcessingVisitors
