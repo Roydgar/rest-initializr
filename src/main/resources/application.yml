@@ -91,13 +91,7 @@ template:
     PACKAGE: template-type-package
     CLASS_NAME: template-type-class
     SQL_TABLE: sql-table
-    DATASOURCE_DIALECT: datasource-dialect
-    DATASOURCE_PORT: datasource-port
-    DATASOURCE_HOST: datasource-host
-    DATASOURCE_DB_NAME: datasource-db-name
-    DATASOURCE_USE_UNICODE: datasource-use-unicode
-    DATASOURCE_SERVER_TIMEZONE: datasource-server-timezone
-    DATASOURCE_CREATE_TABLE_IF_NOT_EXIST: datasource-create-table-if-not-exist
+    DATASOURCE_URL: datasource-url
     DATASOURCE_USERNAME: datasource-username
     DATASOURCE_PASSWORD: datasource-password
     DATASOURCE_DRIVER: datasource-driver
@@ -165,8 +159,6 @@ spring-initializr:
     - lombok
   sqlDialectToDependencyMap:
     MY_SQL: mysql
-    POSTGRES_SQL: postgresql
-    SQL_SERVER: sqlserver
 
 
 

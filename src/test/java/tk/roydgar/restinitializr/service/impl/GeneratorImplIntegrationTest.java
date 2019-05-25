@@ -48,16 +48,10 @@ public class GeneratorImplIntegrationTest {
 
         PropertiesParameters propertiesParameters = new PropertiesParameters();
         PropertiesParameters.DataSourceParameters dataSourceParameters = new PropertiesParameters.DataSourceParameters();
-        dataSourceParameters.setDialect("mysql");
-        dataSourceParameters.setHost("localhost");
-        dataSourceParameters.setPort("3306");
-        dataSourceParameters.setDbName("odb");
-        dataSourceParameters.setUseUnicode(true);
-        dataSourceParameters.setServerTimeZone("UTC");
-        dataSourceParameters.setCreateTableIfNotExist(true);
+        dataSourceParameters.setUrl("jdbc:mysql://localhost:3306/odb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true");
         dataSourceParameters.setUsername("root");
         dataSourceParameters.setPassword("root");
-        dataSourceParameters.setSqlDialect(SQLDialect.MY_SQL);
+        dataSourceParameters.setDriverClassName("com.mysql.jdbc.Driver");
 
         propertiesParameters.setServerPort("8080");
         propertiesParameters.setDataSourceParameters(dataSourceParameters);

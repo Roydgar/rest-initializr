@@ -1,7 +1,6 @@
 package tk.roydgar.restinitializr.model;
 
 import lombok.Data;
-import tk.roydgar.restinitializr.sql.model.enums.SQLDialect;
 
 @Data
 public class PropertiesParameters {
@@ -11,15 +10,8 @@ public class PropertiesParameters {
 
     @Data
     public static class DataSourceParameters {
-        private String dialect;
-        private String host;
-        private String port;
-        private String dbName;
-        private String serverTimeZone;
-        private boolean useUnicode;
-        private boolean createTableIfNotExist;
-        private SQLDialect sqlDialect;
-
+        private String url;
+        private String driverClassName;
         private String username;
         private String password;
     }

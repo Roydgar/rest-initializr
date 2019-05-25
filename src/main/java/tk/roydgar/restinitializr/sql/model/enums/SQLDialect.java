@@ -8,9 +8,7 @@ import lombok.Getter;
 @Getter
 public enum  SQLDialect {
 
-    MY_SQL(JdbcConstants.MYSQL, JdbcConstants.MYSQL_DRIVER),
-    POSTGRES_SQL(JdbcConstants.POSTGRESQL, JdbcConstants.POSTGRESQL_DRIVER),
-    SQL_SERVER(JdbcConstants.SQL_SERVER, JdbcConstants.SQL_SERVER_DRIVER);
+    MY_SQL(JdbcConstants.MYSQL, JdbcConstants.MYSQL_DRIVER);
 
     private String jdbcConstantName;
     private String driverName;

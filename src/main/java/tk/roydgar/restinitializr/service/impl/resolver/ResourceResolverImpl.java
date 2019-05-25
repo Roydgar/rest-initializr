@@ -31,7 +31,7 @@ public class ResourceResolverImpl implements ResourceResolver {
         for (TemplateType templateType : resourceTemplateTypes) {
             String fileName = fileNameResolver.resolveForResource(templateType, initializrParameters);
             Map<String, Object> contextContent = templatePropertiesContentProvider
-                    .createContextContent(propertiesParameters, propertiesParameters.getDataSourceParameters().getSqlDialect());
+                    .createContextContent(propertiesParameters);
 
             InputStream contentStream = templateParser.parseTemplate(templateType, contextContent);
             extendableZipFile.removeFromZip(fileNameResolver.resolveApplicationPropertiesPath(initializrParameters));
