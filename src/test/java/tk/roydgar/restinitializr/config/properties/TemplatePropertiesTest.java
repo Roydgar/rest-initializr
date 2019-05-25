@@ -23,7 +23,7 @@ public class TemplatePropertiesTest {
         softly.assertThat(templateProperties.getTemplatesRelativePath()).isNotNull();
         softly.assertThat(templateProperties.getTemplateExtension()).isNotNull();
         softly.assertThat(templateProperties.getTemplateKeyToNameMap()).isNotNull();
-        softly.assertThat(templateProperties.getTemplateTypeToFileNameMap()).isNotNull();
+        softly.assertThat(templateProperties.getTemplateTypeToTemplateFileNameMap()).isNotNull();
     }
 
 }

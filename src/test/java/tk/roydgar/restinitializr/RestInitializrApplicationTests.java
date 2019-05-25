@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import tk.roydgar.restinitializr.client.SpringInitializrClient;
 import tk.roydgar.restinitializr.model.SpringInitializrParameters;
-import tk.roydgar.restinitializr.service.impl.VelocityTemplateParserService;
+import tk.roydgar.restinitializr.service.impl.parser.VelocityTemplateParser;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -20,7 +20,7 @@ public class RestInitializrApplicationTests {
 	private SpringInitializrClient client;
 
 	@Autowired
-	private VelocityTemplateParserService templateParserService;
+	private VelocityTemplateParser templateParserService;
 
 	@Test
 	public void anotherTest(){

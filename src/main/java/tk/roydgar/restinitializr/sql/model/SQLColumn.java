@@ -1,7 +1,11 @@
 package tk.roydgar.restinitializr.sql.model;
 
 import lombok.Data;
-import tk.roydgar.restinitializr.model.JavaType;
+import tk.roydgar.restinitializr.model.JavaTypeDefinition;
+import tk.roydgar.restinitializr.model.validation.ValidationEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class SQLColumn {
@@ -21,5 +25,9 @@ public class SQLColumn {
     private boolean isPrimaryKey;
     private boolean isForeignKey;
 
-    private JavaType javaType;
+    private JavaTypeDefinition javaTypeDefinition;
+    private List<ValidationEntity> validationEntities = new ArrayList<>();
+
+    private String formattedParameters;
+
 }

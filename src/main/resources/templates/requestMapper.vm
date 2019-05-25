@@ -2,6 +2,7 @@ package $request-mapper-package;
 
 import $entity-import;
 import $create-request-import;
+import $update-request-import;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -14,4 +15,9 @@ public class $request-mapper-class {
         return $entity;
     }
 
+    public $Entity toEntity($update-request-class request) {
+        $Entity $entity = new $Entity();
+        BeanUtils.copyProperties(request, $entity);
+        return $entity;
+    }
 }

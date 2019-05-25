@@ -14,6 +14,7 @@ import tk.roydgar.restinitializr.sql.model.SQLColumn;
 import tk.roydgar.restinitializr.sql.model.SQLEnum;
 import tk.roydgar.restinitializr.sql.model.SQLTable;
 import tk.roydgar.restinitializr.sql.model.enums.SQLDialect;
+import tk.roydgar.restinitializr.sql.parser.SQLCreateTableParser;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class SQLCreateTableParserServiceIntegrationTest {
 
     private static final SQLDialect SQL_DIALECT = SQLDialect.MY_SQL;
     @Autowired
-    private SQLCreateTableParserService subject;
+    private SQLCreateTableParser subject;
 
     @Rule
     public JUnitSoftAssertions softly = new JUnitSoftAssertions();

@@ -2,131 +2,79 @@ mysql:
   sqlTypeMap:
     bit:
       typeClassification: BOOLEAN
-      javaType:
-        label: Boolean
-        importPath: java.lang.Boolean
+      javaType: BOOLEAN
     tinyint:
       typeClassification: NUMERIC
-      javaType:
-        label: Integer
-        importPath: java.lang.Integer
+      javaType: INTEGER
     bool:
       typeClassification: BOOLEAN
-      javaType:
-        label: Boolean
-        importPath: java.lang.Boolean
+      javaType: BOOLEAN
     boolean:
       typeClassification: BOOLEAN
-      javaType:
-        label: Boolean
-        importPath: java.lang.Boolean
+      javaType: BOOLEAN
     smallint:
       typeClassification: NUMERIC
-      javaType:
-        label: Integer
-        importPath: java.lang.Integer
+      javaType: INTEGER
     mediumint:
       typeClassification: NUMERIC
-      javaType:
-        label: Integer
-        importPath: java.lang.Integer
+      javaType: INTEGER
     int:
       typeClassification: NUMERIC
-      javaType:
-        label: Integer
-        importPath: java.lang.Integer
+      javaType: INTEGER
     integer:
       typeClassification: NUMERIC
-      javaType:
-        label: Integer
-        importPath: java.lang.Integer
+      javaType: INTEGER
     bigint:
       typeClassification: NUMERIC
-      javaType:
-        label: Long
-        importPath: java.lang.Long
+      javaType: LONG
     decimal:
       typeClassification: NUMERIC
-      javaType:
-        label: BigDecimal
-        importPath: java.math.BigDecimal
+      javaType: BIG_DECIMAL
     float:
       typeClassification: NUMERIC
-      javaType:
-        label: Double
-        importPath: java.lang.Double
+      javaType: DOUBLE
     double:
       typeClassification: NUMERIC
-      javaType:
-        label: Double
-        importPath: java.lang.Double
+      javaType: DOUBLE
     date:
       typeClassification: DATE
-      javaType:
-        label: LocalDate
-        importPath: java.time.LocalDate
+      javaType: LOCAL_DATE
     datetime:
       typeClassification: DATETIME
-      javaType:
-        label: LocalDateTime
-        importPath: java.time.LocalDateTime
+      javaType: LOCAL_DATE_TIME
     timestamp:
       typeClassification: DATETIME
-      javaType:
-        label: LocalDateTime
-        importPath: java.time.LocalDateTime
+      javaType: LOCAL_DATE_TIME
     time:
       typeClassification: TIME
-      javaType:
-        label: LocalTime
-        importPath: java.time.LocalTime
+      javaType: LOCAL_TIME
     char:
       typeClassification: TEXT
-      javaType:
-        label: String
-        importPath: java.lang.String
+      javaType: STRING
     varchar:
       typeClassification: TEXT
-      javaType:
-        label: String
-        importPath: java.lang.String
+      javaType: STRING
     binary:
       typeClassification: BINARY
-      javaType:
-        label: byte[]
-        importPath:
+      javaType: BYTE_ARR
     varbinary:
       typeClassification: BINARY
-      javaType:
-        label: byte[]
-        importPath:
+      javaType: BYTE_ARR
     tinyblob:
       typeClassification: BINARY
-      javaType:
-        label: byte[]
-        importPath:
+      javaType: BYTE_ARR
     blob:
       typeClassification: BINARY
-      javaType:
-        label: byte[]
-        importPath:
+      javaType: BYTE_ARR
     mediumblob:
       typeClassification: BINARY
-      javaType:
-        label: byte[]
-        importPath:
+      javaType: BYTE_ARR
     longblob:
       typeClassification: BINARY
-      javaType:
-        label: byte[]
-        importPath:
+      javaType: BYTE_ARR
     enum:
       typeClassification: ENUM
-      javaType:
-        label: Object
-        importPath:
+      javaType: OBJECT
     set:
       typeClassification: SET
-      javaType:
-        label: Object
-        importPath:
+      javaType: OBJECT

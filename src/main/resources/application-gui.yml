@@ -1,0 +1,4 @@
+gui:
+  window-width: 500
+  window-height: 600
+  window-title: REST generator

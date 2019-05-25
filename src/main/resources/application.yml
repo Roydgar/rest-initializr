@@ -1,6 +1,7 @@
 spring.profiles.include:
   - 'mysql'
   - 'validation'
+  - 'gui'
 
 zip-file:
   tempDir: temp
@@ -20,6 +21,7 @@ file-extension:
     CONTROLLER: java
     CONFIGURATION: java
     PROPERTIES: yml
+    ENUM: java
 
 file-naming-dependencies:
   templateTypeTemplateKeyMap:
@@ -36,6 +38,7 @@ file-naming-dependencies:
     CONTROLLER: ENTITY
     CONFIGURATION: NONE
     PROPERTIES: NONE
+    ENUM: ENTITY
 
 file-suffix:
   typeToSuffixMap:
@@ -52,6 +55,7 @@ file-suffix:
     CONTROLLER: Controller
     CONFIGURATION: AppConfig
     PROPERTIES: application
+    ENUM:
 
 package-naming:
   default-project-path: src.main.java
@@ -72,6 +76,7 @@ package-naming:
     CONTROLLER: controller
     CONFIGURATION: config
     PROPERTIES:
+    ENUM: domain.enums
 
 template:
   templatesRelativePath: templates
@@ -86,13 +91,20 @@ template:
     PACKAGE: template-type-package
     CLASS_NAME: template-type-class
     SQL_TABLE: sql-table
-    DATASOURCE_URL: datasource-url
+    DATASOURCE_DIALECT: datasource-dialect
+    DATASOURCE_PORT: datasource-port
+    DATASOURCE_HOST: datasource-host
+    DATASOURCE_DB_NAME: datasource-db-name
+    DATASOURCE_USE_UNICODE: datasource-use-unicode
+    DATASOURCE_SERVER_TIMEZONE: datasource-server-timezone
+    DATASOURCE_CREATE_TABLE_IF_NOT_EXIST: datasource-create-table-if-not-exist
     DATASOURCE_USERNAME: datasource-username
     DATASOURCE_PASSWORD: datasource-password
-    DATASOURCE_DRIVER_CLASSNAME: datasource-driver
+    DATASOURCE_DRIVER: datasource-driver
     SERVER_PORT: server-port
+    ENUM_VALUES: enum-values
 
-  templateTypeToFileNameMap:
+  templateTypeToTemplateFileNameMap:
     REPOSITORY: repository
     SERVICE: service
     ENTITY: entity
@@ -106,6 +118,7 @@ template:
     CONTROLLER: controller
     CONFIGURATION: config
     PROPERTIES: properties
+    ENUM: enum
 
 template-type-labels:
   templateTypeToLabelMap:
@@ -122,6 +135,7 @@ template-type-labels:
     CONTROLLER: controller
     CONFIGURATION: config
     PROPERTIES: application
+    ENUM: enum
 
 automation-build:
   mavenDependencies:
@@ -139,7 +153,20 @@ automation-build:
           <artifactId>springfox-swagger-ui</artifactId>
           <version>2.9.2</version>
         </dependency>
+  gradleDependencies:
+    - "compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'"
+    - "compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.0.2'"
 
+spring-initializr:
+  springBootVersion: 2.1.5.RELEASE
+  dependencies:
+    - data-jpa
+    - web
+    - lombok
+  sqlDialectToDependencyMap:
+    MY_SQL: mysql
+    POSTGRES_SQL: postgresql
+    SQL_SERVER: sqlserver
 
 
 

@@ -7,11 +7,13 @@ import $response-mapper-import;
 import $service-import;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.validation.annotation.Validated;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("$entity")
+@Validated
 @RequiredArgsConstructor
 public class $controller-class {
 
@@ -29,12 +31,12 @@ public class $controller-class {
     }
 
     @PostMapping
-    public $dto-class create($create-request-class createRequest) {
+    public $dto-class create(@Valid $create-request-class createRequest) {
         return responseMapper.toDto(service.create(createRequest));
     }
 
     @PutMapping
-    public $dto-class update($update-request-class updateRequest) {
+    public $dto-class update(@Valid $update-request-class updateRequest) {
         return responseMapper.toDto(service.update(updateRequest));
     }
 

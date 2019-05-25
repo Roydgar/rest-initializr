@@ -52,7 +52,6 @@ public class MySQLTableVisitor extends MySqlASTVisitorAdapter implements SQLTabl
     @Override
     public boolean visit(MysqlForeignKey x) {
 
-
         return true;
     }
 

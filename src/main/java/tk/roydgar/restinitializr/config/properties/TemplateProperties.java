@@ -28,6 +28,6 @@ public class TemplateProperties {
     @NotEmpty
     private Map<TemplateKey,@NotBlank String> templateKeyToNameMap;
     @NotEmpty
-    private Map<TemplateType,@NotBlank String> templateTypeToFileNameMap;
+    private Map<TemplateType,@NotBlank String> templateTypeToTemplateFileNameMap;
 
 }

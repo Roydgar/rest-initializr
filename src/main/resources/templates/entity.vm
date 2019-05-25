@@ -1,9 +1,12 @@
 package $entity-package;
 
 #foreach($column in $sql-table.getColumns())
-    #if($column.isImportNeeded())
-$column.getJavaType().getImportPath();
-    #end
+#if($column.getJavaTypeDefinition().getJavaType().isImportNeeded())
+import $column.getJavaType().getImportPath();
+#end
+#end
+#foreach($enum-import in $enum-imports)
+import $enum-import;
 #end
 
 import lombok.Getter;
@@ -17,16 +20,28 @@ import javax.persistence.*;
 @Table(name = "$sql-table.getName()")
 public class $entity-class {
 
-    #foreach($column in $sql-table.getColumns())
-        #if ($column.isPrimaryKey())
+#foreach($column in $sql-table.getColumns())
+#if ($column.isPrimaryKey())
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "$entity_id")
-        #else
+#if ($column.getFormattedParameters() == "")
+    @Column(name = "${entity}_id")
+#else
+    @Column(name = "${entity}_id", $column.getFormattedParameters())
+#end
+#else
+#if ($column.getFormattedParameters() == "")
     @Column
-        #end
-    private $column.getJavaType().getLabel() $column.getName();
+#else
+    @Column($column.getFormattedParameters())
+#end
+#end
+#if ($column.getDefaultValue())
+    private $column.getJavaTypeDefinition().getLabel() $column.getName() = $column.getDefaultValue();
 
-    #end
+#else
+    private $column.getJavaTypeDefinition().getLabel() $column.getName();
 
+#end
+#end
 }

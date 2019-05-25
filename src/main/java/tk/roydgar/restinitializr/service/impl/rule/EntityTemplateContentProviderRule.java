@@ -35,7 +35,7 @@ public class EntityTemplateContentProviderRule implements TemplateContentProvide
         return ImmutableMap.of(
                 templateKeyToNameMap.get(TemplateKey.ENTITY), entityName,
                 templateKeyToNameMap.get(TemplateKey.ENTITY_CAPITALIZED), entityNameCapitalized,
-                templateKeyToNameMap.get(TemplateKey.ENTITY_ID_TYPE), primaryKeyColumn.getJavaType().getLabel()
+                templateKeyToNameMap.get(TemplateKey.ENTITY_ID_TYPE), primaryKeyColumn.getJavaTypeDefinition().getLabel()
         );
     }
 

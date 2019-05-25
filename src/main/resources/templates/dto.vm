@@ -1,9 +1,12 @@
 package $dto-package;
 
 #foreach($column in $sql-table.getColumns())
-    #if($column.isImportNeeded())
-$column.getJavaType().getImportPath();
-    #end
+#if($column.getJavaType().isImportNeeded())
+import $column.getJavaType().getImportPath();
+#end
+#end
+#foreach($enum-import in $enum-imports)
+import $enum-import;
 #end
 
 import lombok.Getter;
@@ -14,7 +17,7 @@ import lombok.Setter;
 public class $dto-class {
 
 #foreach($column in $sql-table.getColumns())
-    private $column.getJavaType().getLabel() $column.getName();
-
+    private $column.getJavaTypeDefinition().getLabel() $column.getName();
 #end
+
 }

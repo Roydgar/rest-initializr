@@ -32,9 +32,13 @@ public enum ValidationAnnotation {
     SIZE("@Size", ImmutableList.of(new Parameter("min", ""), new Parameter("max", "")), "");
     
     private String label;
+
     private List<Parameter> parameters;
     private String description;
 
+    public String getImportPath() {
+        return "javax.validation.constraints" + "." + getLabel().substring(1);
+    }
     @Getter
     @AllArgsConstructor
     public static class Parameter {

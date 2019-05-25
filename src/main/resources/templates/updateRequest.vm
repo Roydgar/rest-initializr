@@ -1,9 +1,15 @@
 package $update-request-package;
 
-#foreach($column in $sql-table.getColumns())
-    #if($column.isImportNeeded())
-$column.getJavaType().getImportPath();
-    #end
+#foreach($column in $sql-table.getColumns())##
+#if($column.getJavaType().isImportNeeded())
+import $column.getJavaTypeDefinition().getJavaType().getImportPath();
+#end
+#foreach($validation-entity in $column.getValidationEntities())
+import $validation-entity.getValidationAnnotation().getImportPath();
+#end
+#end
+#foreach($enum-import in $enum-imports)
+import $enum-import;
 #end
 
 import lombok.Getter;
@@ -13,9 +19,11 @@ import lombok.Setter;
 @Setter
 public class $update-request-class extends $create-request-class {
 
-    #foreach($column in $sql-table.getColumns())
-        #if($column.isPrimaryKey() == true)
-    private $column.getJavaType().getLabel() $column.getName();
-        #end
-    #end
+#foreach($column in $sql-table.getColumns())
+#foreach($validation-entity in $column.getValidationEntities())
+    ${validation-entity.getValidationAnnotation().getLabel()}(${validation-entity.getFormattedParameters()})
+#end
+    private $column.getJavaTypeDefinition().getLabel() $column.getName();
+#end
+
 }

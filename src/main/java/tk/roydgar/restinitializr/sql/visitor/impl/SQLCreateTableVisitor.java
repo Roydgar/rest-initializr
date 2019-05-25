@@ -25,7 +25,8 @@ public class SQLCreateTableVisitor extends SQLASTVisitorAdapter implements SQLTa
         String name = x.getTableSource().getName().getSimpleName();
         log.debug("Parsed table name: {}", name);
 
-        table.setName(FormatUtils.deleteQuotes(name));
+        String nameWithoutQuotes = FormatUtils.deleteQuotes(name);
+        table.setName(FormatUtils.snakeToCamelCase(nameWithoutQuotes));
         return true;
     }
 

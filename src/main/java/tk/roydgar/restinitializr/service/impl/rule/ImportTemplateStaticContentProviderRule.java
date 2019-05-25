@@ -7,7 +7,7 @@ import tk.roydgar.restinitializr.config.properties.TemplateTypeLabelsProperties;
 import tk.roydgar.restinitializr.model.SpringInitializrParameters;
 import tk.roydgar.restinitializr.model.enums.template.TemplateKey;
 import tk.roydgar.restinitializr.model.enums.template.TemplateType;
-import tk.roydgar.restinitializr.service.ImportResolverService;
+import tk.roydgar.restinitializr.service.resolver.ImportResolver;
 import tk.roydgar.restinitializr.service.rule.TemplateStaticContentProviderRule;
 
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ImportTemplateStaticContentProviderRule implements TemplateStaticContentProviderRule {
 
-    private final ImportResolverService importResolverService;
+    private final ImportResolver importResolver;
     private final TemplateProperties templateProperties;
     private final TemplateTypeLabelsProperties templateTypeLabelsProperties;
     private final List<TemplateType> staticTemplateTypes;
@@ -33,7 +33,7 @@ public class ImportTemplateStaticContentProviderRule implements TemplateStaticCo
         Map<String, Object> contextContent = new HashMap<>();
 
         for (TemplateType templateType : staticTemplateTypes) {
-            String importPath = importResolverService.resolveImport(templateType, springInitializrParameters);
+            String importPath = importResolver.resolveImport(templateType, springInitializrParameters);
             contextContent.put(String.format(importFormat,
                             templateTypeLabelsProperties.getTemplateTypeToLabelMap().get(templateType)), importPath);
         }

@@ -7,9 +7,12 @@ import com.alibaba.druid.sql.ast.statement.SQLColumnConstraint;
 import com.alibaba.druid.sql.ast.statement.SQLColumnDefinition;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import tk.roydgar.restinitializr.config.properties.sql.SQLTypeMappingProperties;
 import tk.roydgar.restinitializr.exception.CannotParseSQLTypeException;
+import tk.roydgar.restinitializr.model.JavaTypeDefinition;
+import tk.roydgar.restinitializr.model.enums.JavaType;
 import tk.roydgar.restinitializr.sql.model.SQLColumn;
 import tk.roydgar.restinitializr.sql.model.SQLType;
 import tk.roydgar.restinitializr.sql.model.enums.SQLDialect;
@@ -34,7 +37,9 @@ public class SQLColumnResolver {
         SQLTypeMappingProperties sqlTypeMappingProperties = dialectToMappingPropertiesMap.get(sqlDialect);
         SQLColumn column = new SQLColumn();
 
-        column.setName(FormatUtils.deleteQuotes(sqlColumnDefinition.getNameAsString()));
+        String nameWithoutQuotes = FormatUtils.deleteQuotes(sqlColumnDefinition.getNameAsString());
+        String nameInCamelCase = FormatUtils.snakeToCamelCase(nameWithoutQuotes);
+        column.setName(FormatUtils.deleteQuotes(nameInCamelCase));
         column.setAutoIncremental(sqlColumnDefinition.isAutoIncrement());
         column.setDataType(parseType(sqlColumnDefinition));
 
@@ -45,12 +50,21 @@ public class SQLColumnResolver {
         }
 
         parseArguments(sqlColumnDefinition, column, sqlType.getTypeClassification());
-        parseDefaultValue(sqlColumnDefinition, column);
 
         sqlColumnDefinition.getConstraints()
                 .forEach(constraint -> parseConstraints(column, constraint));
 
-        column.setJavaType(sqlType.getJavaType());
+        JavaTypeDefinition javaTypeDefinition = new JavaTypeDefinition();
+        javaTypeDefinition.setJavaType(sqlType.getJavaType());
+
+        if (column.getDataType().equalsIgnoreCase("enum")) {
+            javaTypeDefinition.setLabel(StringUtils.capitalize(nameInCamelCase));
+        } else {
+            javaTypeDefinition.setLabel(sqlType.getJavaType().getLabel());
+        }
+        column.setJavaTypeDefinition(javaTypeDefinition);
+
+        parseDefaultValue(sqlColumnDefinition, column);
         return column;
     }
 
@@ -71,6 +85,9 @@ public class SQLColumnResolver {
                     String value = FormatUtils.deleteQuotes(expression.getValue().toString());
 
                     log.debug("Setting default value for column {}: {}", sqlColumnDefinition, value);
+                    if (column.getJavaTypeDefinition().getJavaType() == JavaType.STRING) {
+                        value = "\"" + value + "\"";
+                    }
                     column.setDefaultValue(value);
                 });
     }

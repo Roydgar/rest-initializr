@@ -1,0 +1,7 @@
+package $enum-package;
+
+public enum $enum-class {
+#foreach($enum-value in $enum-values)
+    $enum-value,
+#end
+}

@@ -6,6 +6,7 @@ import com.alibaba.druid.sql.ast.statement.SQLColumnDefinition;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import tk.roydgar.restinitializr.sql.model.SQLEnum;
+import tk.roydgar.restinitializr.util.FormatUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,8 @@ public class SQLEnumResolver {
                     .collect(Collectors.toList());
 
             SQLEnum sqlEnum = new SQLEnum();
-            sqlEnum.setName(sqlColumnDefinition.getNameAsString());
+            String nameInCamelCase = FormatUtils.snakeToCamelCase(sqlColumnDefinition.getNameAsString());
+            sqlEnum.setName(nameInCamelCase);
             sqlEnum.setValues(values);
 
             log.debug("Created enum enum definition from column {} is: {}", sqlColumnDefinition, sqlEnum);

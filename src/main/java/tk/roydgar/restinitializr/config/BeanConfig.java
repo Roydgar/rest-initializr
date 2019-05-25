@@ -12,12 +12,19 @@ import tk.roydgar.restinitializr.config.properties.FileExtensionProperties;
 import tk.roydgar.restinitializr.config.properties.FileNamingDependencyProperties;
 import tk.roydgar.restinitializr.config.properties.sql.MySQLTypeMappingProperties;
 import tk.roydgar.restinitializr.config.properties.sql.SQLTypeMappingProperties;
+import tk.roydgar.restinitializr.model.enums.AutomationBuildSystem;
 import tk.roydgar.restinitializr.model.enums.template.TemplateKey;
 import tk.roydgar.restinitializr.model.enums.template.TemplateType;
-import tk.roydgar.restinitializr.service.AutomationBuildFileDependencyExtenderService;
-import tk.roydgar.restinitializr.service.GradleFileDependencyExtenderService;
-import tk.roydgar.restinitializr.service.MavenFileDependencyExtenderService;
+import tk.roydgar.restinitializr.service.dependency.AutomationBuildFileDependencyExtender;
+import tk.roydgar.restinitializr.service.goal.AutomationBuildGoalExecutor;
+import tk.roydgar.restinitializr.service.impl.dependency.GradleFileDependencyExtender;
+import tk.roydgar.restinitializr.service.impl.dependency.MavenFileDependencyExtender;
+import tk.roydgar.restinitializr.service.impl.goal.GradleGoalExecutor;
+import tk.roydgar.restinitializr.service.impl.goal.MavenGoalExecutor;
+import tk.roydgar.restinitializr.service.impl.modifier.FormattedColumnParametersSQLTableModifier;
+import tk.roydgar.restinitializr.service.impl.modifier.FormattedValidationParametersSQLTableModifier;
 import tk.roydgar.restinitializr.service.impl.rule.*;
+import tk.roydgar.restinitializr.service.modifier.SQLTableModifier;
 import tk.roydgar.restinitializr.service.rule.TemplateContentProviderRule;
 import tk.roydgar.restinitializr.service.rule.TemplateStaticContentProviderRule;
 import tk.roydgar.restinitializr.sql.model.enums.SQLDialect;
@@ -30,6 +37,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static tk.roydgar.restinitializr.model.enums.AutomationBuildSystem.GRADLE;
+import static tk.roydgar.restinitializr.model.enums.AutomationBuildSystem.MAVEN;
 
 @Configuration
 public class BeanConfig {
@@ -68,13 +78,13 @@ public class BeanConfig {
             ImportTemplateContentProviderRule importTemplateContentProviderRule,
             PackageTemplateContentProviderRule packageTemplateContentProviderRule,
             SQLTableTemplateContentProviderRule sqlTableTemplateContentProviderRule,
-            ClassNamesTemplateContentProviderRule classNamesTemplateContentProviderRule) {
+            ClassNameTemplateContentProviderRule classNameTemplateContentProviderRule) {
         return ImmutableList.of(
                 entityTemplateContentProviderRule,
                 importTemplateContentProviderRule,
                 packageTemplateContentProviderRule,
                 sqlTableTemplateContentProviderRule,
-                classNamesTemplateContentProviderRule
+                classNameTemplateContentProviderRule
         );
     }
 
@@ -82,7 +92,7 @@ public class BeanConfig {
     public List<TemplateStaticContentProviderRule> templateStaticContentProviderRules(
             ImportTemplateStaticContentProviderRule importTemplateContentProviderRule,
             PackageTemplateStaticContentProviderRule packageTemplateContentProviderRule,
-            ClassNamesTemplateStaticContentProviderRule classNamesTemplateContentProviderRule) {
+            ClassNameTemplateStaticContentProviderRule classNamesTemplateContentProviderRule) {
         return ImmutableList.of(
                 importTemplateContentProviderRule,
                 packageTemplateContentProviderRule,
@@ -97,6 +107,7 @@ public class BeanConfig {
         return dependencyProperties.getTemplateTypeTemplateKeyMap().entrySet()
                 .stream()
                 .filter(entry -> typeToFileExtensionMap.get(entry.getKey()).equals("java"))
+                .filter(entry -> entry.getKey() != TemplateType.ENUM)
                 .filter(entry -> entry.getValue() == TemplateKey.NONE)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
@@ -109,6 +120,7 @@ public class BeanConfig {
         return dependencyProperties.getTemplateTypeTemplateKeyMap().entrySet()
                 .stream()
                 .filter(entry -> typeToFileExtensionMap.get(entry.getKey()).equals("java"))
+                .filter(entry -> entry.getKey() != TemplateType.ENUM)
                 .filter(entry -> entry.getValue() != null)
                 .filter(entry -> entry.getValue() != TemplateKey.NONE)
                 .map(Map.Entry::getKey)
@@ -126,14 +138,31 @@ public class BeanConfig {
     }
 
     @Bean
-    public Map<String, AutomationBuildFileDependencyExtenderService> projectTypeToDependencyExtenderService (
-            MavenFileDependencyExtenderService mavenFileDependencyExtenderService,
-            GradleFileDependencyExtenderService gradleFileDependencyExtenderService) {
-
+    public Map<AutomationBuildSystem, AutomationBuildFileDependencyExtender> projectTypeToDependencyExtenderService (
+            MavenFileDependencyExtender mavenFileDependencyExtenderService,
+            GradleFileDependencyExtender gradleFileDependencyExtenderService) {
 
         return ImmutableMap.of(
-                "maven-project", mavenFileDependencyExtenderService,
-                "gradle-project", gradleFileDependencyExtenderService);
+                MAVEN, mavenFileDependencyExtenderService,
+                GRADLE, gradleFileDependencyExtenderService);
+    }
+
+    @Bean
+    public List<SQLTableModifier> sqlTableModifiers(
+            FormattedValidationParametersSQLTableModifier validationParametersSQLTableModifier,
+            FormattedColumnParametersSQLTableModifier formattedColumnParametersSQLTableModifier) {
+        return ImmutableList.of(
+                validationParametersSQLTableModifier,
+                formattedColumnParametersSQLTableModifier
+        );
+    }
+
+    public Map<AutomationBuildSystem, AutomationBuildGoalExecutor> automationBuildGoalExecutorMap (
+            MavenGoalExecutor mavenGoalExecutor, GradleGoalExecutor gradleGoalExecutor) {
+        return ImmutableMap.of(
+                MAVEN, mavenGoalExecutor,
+                GRADLE, gradleGoalExecutor
+        );
     }
 
 
