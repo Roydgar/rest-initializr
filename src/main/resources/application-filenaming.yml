@@ -1,0 +1,54 @@
+file-suffix:
+  typeToSuffixMap:
+    REPOSITORY: Repository
+    SERVICE: Service
+    ENTITY:
+    DTO: Dto
+    CREATE_REQUEST: CreateRequest
+    UPDATE_REQUEST: UpdateRequest
+    REQUEST_MAPPER: RequestMapper
+    RESPONSE_MAPPER: ResponseMapper
+    NOT_FOUND_EXCEPTION: ResourceNotFoundException
+    CONTROLLER_ADVICE: ResourceExceptionHandler
+    CONTROLLER: Controller
+    CONFIGURATION: AppConfig
+    PROPERTIES: application
+    ENUM:
+
+package-naming:
+  default-project-path: src.main.java
+  resources-path: src.main.resources
+  custom-package-separator: .
+
+  typeToPackageNameMap:
+    REPOSITORY: repository
+    SERVICE: service
+    ENTITY: domain
+    DTO: domain.dto.response
+    CREATE_REQUEST:  domain.dto.request
+    UPDATE_REQUEST:  domain.dto.request
+    REQUEST_MAPPER:  mapper.request
+    RESPONSE_MAPPER:  mapper.response
+    NOT_FOUND_EXCEPTION: exception
+    CONTROLLER_ADVICE: controller.advice
+    CONTROLLER: controller
+    CONFIGURATION: config
+    PROPERTIES:
+    ENUM: domain.enums
+
+file-extension:
+  typeToFileExtensionMap:
+    REPOSITORY: java
+    SERVICE: java
+    ENTITY: java
+    DTO: java
+    CREATE_REQUEST: java
+    UPDATE_REQUEST: java
+    REQUEST_MAPPER: java
+    RESPONSE_MAPPER: java
+    NOT_FOUND_EXCEPTION: java
+    CONTROLLER_ADVICE: java
+    CONTROLLER: java
+    CONFIGURATION: java
+    PROPERTIES: yml
+    ENUM: java

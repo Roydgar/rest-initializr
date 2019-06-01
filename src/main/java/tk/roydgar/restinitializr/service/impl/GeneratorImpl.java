@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import tk.roydgar.restinitializr.client.SpringInitializrClient;
 import tk.roydgar.restinitializr.model.GeneratorParameters;
 import tk.roydgar.restinitializr.model.ProjectParameters;
+import tk.roydgar.restinitializr.model.SQLInputQueries;
 import tk.roydgar.restinitializr.model.SpringInitializrParameters;
 import tk.roydgar.restinitializr.model.enums.AutomationBuildSystem;
 import tk.roydgar.restinitializr.model.enums.template.TemplateType;
@@ -24,7 +25,6 @@ import tk.roydgar.restinitializr.service.resolver.ImportResolver;
 import tk.roydgar.restinitializr.service.resolver.ResourceResolver;
 import tk.roydgar.restinitializr.sql.model.SQLEnum;
 import tk.roydgar.restinitializr.sql.model.SQLTable;
-import tk.roydgar.restinitializr.sql.model.enums.SQLDialect;
 import tk.roydgar.restinitializr.sql.parser.SQLParser;
 import tk.roydgar.restinitializr.util.ExtendableZipFile;
 
@@ -58,11 +58,10 @@ public class GeneratorImpl implements Generator {
     private String tempDirName;
 
     @Override
-    public List<SQLTable> parseQueries(GeneratorParameters generatorParameters) {
-        SQLDialect sqlDialect = generatorParameters.getProjectParameters().getSqlDialect();
-        return generatorParameters.getSqlQueries()
+    public List<SQLTable> parseQueries(SQLInputQueries sqlInputQueries) {
+        return sqlInputQueries.getSqlQueries()
                 .stream()
-                .map(query -> sqlParser.parseCreateQuery(query, sqlDialect))
+                .map(query -> sqlParser.parseCreateQuery(query, sqlInputQueries.getSqlDialect()))
                 .collect(Collectors.toList());
     }
 

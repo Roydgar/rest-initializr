@@ -1,59 +1,47 @@
 package tk.roydgar.restinitializr.ui.gui;
 
 import lombok.Getter;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import tk.roydgar.restinitializr.model.GeneratorParameters;
-import tk.roydgar.restinitializr.model.ProjectParameters;
-import tk.roydgar.restinitializr.model.PropertiesParameters;
 import tk.roydgar.restinitializr.model.enums.AutomationBuildSystem;
 import tk.roydgar.restinitializr.model.enums.Packaging;
-import tk.roydgar.restinitializr.service.Generator;
-import tk.roydgar.restinitializr.service.connection.ConnectionVerifier;
-import tk.roydgar.restinitializr.sql.model.SQLTable;
-import tk.roydgar.restinitializr.sql.model.enums.SQLDialect;
-import tk.roydgar.restinitializr.util.ExtendableZipFile;
+import tk.roydgar.restinitializr.ui.gui.validator.entity.ValidationResult;
+import tk.roydgar.restinitializr.ui.gui.validator.impl.ProjectParametersPanelValidator;
+import tk.roydgar.restinitializr.util.CompositeActionListenerWithPriorities;
+import tk.roydgar.restinitializr.util.GUIUtils;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 @Component
-@Getter
-public class InputPanel {
+public class InputPanel implements GUIPanel {
+    @Getter
     private JPanel contentPane;
     private JTextField groupIdTextField;
     private JTextField artifactIdTextField;
-    private JTextArea sqlQueriesTextArea;
     private JTextField javaVersionTextField;
     private JTextField descriptionTextField;
-    private JLabel serverPortLabel;
     private JTextField serverPortTextField;
-    private JLabel Username;
     private JRadioButton jarRadioButton;
     private JRadioButton mavenRadioButton;
-    private JFileChooser outputDirectoryChooser;
-    private JTextField datasourceUrlTextField;
-    private JTextField datasourceUsernameTextField;
-    private JPasswordField datasourcePasswordTextField;
-    private JTextField datasourceDriverClassNameTextField;
+
     private JRadioButton warRadioButton;
     private JRadioButton gradleRadioButton;
-    private JButton generateButton;
-    private JComboBox sqlDialectComboBox;
-    private JButton checkConnectionButton;
+    private JButton nextButton;
 
     private ButtonGroup packagingButtonGroup;
     private ButtonGroup buildSystemButtonGroup;
 
     @Autowired
-    private Generator generator;
+    private ProjectParametersPanelValidator panelValidator;
     @Autowired
-    private ConnectionVerifier connectionVerifier;
+    private Session session;
+    private CompositeActionListenerWithPriorities prioritiesListener = new CompositeActionListenerWithPriorities();
 
-    public InputPanel() {
+    @PostConstruct
+    public void setUp() {
         jarRadioButton.setSelected(true);
         mavenRadioButton.setSelected(true);
 
@@ -65,72 +53,70 @@ public class InputPanel {
         buildSystemButtonGroup.add(gradleRadioButton);
         buildSystemButtonGroup.add(mavenRadioButton);
 
-        ComboBoxModel<SQLDialect> comboBoxModel = new DefaultComboBoxModel<>(SQLDialect.values());
-        sqlDialectComboBox.setModel(comboBoxModel);
-
-        generateButton.addActionListener(e -> generateAction());
-        checkConnectionButton.addActionListener(e -> checkConnectionAction());
+        nextButton.addActionListener(prioritiesListener);
     }
 
-    private void checkConnectionAction() {
-        PropertiesParameters.DataSourceParameters dataSourceParameters = new PropertiesParameters.DataSourceParameters();
-        dataSourceParameters.setUrl(datasourceUrlTextField.getText());
-        dataSourceParameters.setUsername(datasourceUsernameTextField.getText());
-        dataSourceParameters.setPassword(datasourcePasswordTextField.getText());
-        dataSourceParameters.setDriverClassName(datasourceDriverClassNameTextField.getText());
+    public void addNextButtonActionListener(ActionListener actionListener, int priority) {
+        prioritiesListener.addActionListener(actionListener, priority);
+    }
 
-        try {
-            connectionVerifier.verifyConnection(dataSourceParameters);
-            JOptionPane.showMessageDialog(null, "Success", "Connection successful", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString(), "Connection failed", JOptionPane.ERROR_MESSAGE);
+    public String getGroupId() {
+        return groupIdTextField.getText();
+    }
+
+    public String getArtifactId() {
+        return artifactIdTextField.getText();
+    }
+
+    public String getJavaVersion() {
+        return javaVersionTextField.getText();
+    }
+
+    public String getDescription() {
+        return descriptionTextField.getText();
+    }
+
+    public String getServerPort() {
+        return serverPortTextField.getText();
+    }
+
+    public Packaging getPackaging() {
+        String formattedPackagingName = GUIUtils.getRequiredSelectedButtonText(packagingButtonGroup);
+        return Packaging.valueOf(formattedPackagingName);
+    }
+
+    public AutomationBuildSystem getAutomationBuildSystem() {
+        String formattedPackagingName = GUIUtils.getRequiredSelectedButtonText(buildSystemButtonGroup);
+        return AutomationBuildSystem.valueOf(formattedPackagingName);
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        contentPane.setVisible(visible);
+    }
+
+    @Override
+    public void setLocation(int x, int y) {
+        contentPane.setLocation(x, y);
+    }
+
+    @Override
+    public Point getLocation() {
+        return contentPane.getLocation();
+    }
+
+    @Override
+    public void setSize(int width, int height) {
+        contentPane.setPreferredSize(new Dimension(width, height));
+    }
+
+    @Override
+    public void validate() {
+        ValidationResult validationResult = panelValidator.execute();
+        session.setValidationResult(validationResult);
+        if (!validationResult.isSuccess()) {
+            JOptionPane.showMessageDialog(null, "Validation Issue: "
+                    + validationResult.getMessage(), "Please, correct your input", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    @SneakyThrows
-    private void generateAction() {
-        PropertiesParameters.DataSourceParameters dataSourceParameters = new PropertiesParameters.DataSourceParameters();
-        PropertiesParameters propertiesParameters = new PropertiesParameters();
-        ProjectParameters projectParameters = new ProjectParameters();
-        GeneratorParameters generatorParameters = new GeneratorParameters();
-
-        SQLDialect sqlDialect = SQLDialect.valueOf(sqlDialectComboBox.getSelectedItem().toString());
-        Packaging packaging = Packaging.valueOf(getSelectedButtonText(packagingButtonGroup));
-        AutomationBuildSystem automationBuildSystem = AutomationBuildSystem.valueOf(getSelectedButtonText(buildSystemButtonGroup));
-
-        projectParameters.setGroupId(groupIdTextField.getText());
-        projectParameters.setArtifactId(artifactIdTextField.getText());
-        projectParameters.setJavaVersion(javaVersionTextField.getText());
-        projectParameters.setDescription(descriptionTextField.getText());
-        projectParameters.setSqlDialect(sqlDialect);
-        projectParameters.setPackaging(packaging);
-        projectParameters.setAutomationBuildSystem(automationBuildSystem);
-
-        propertiesParameters.setServerPort(serverPortTextField.getText());
-        dataSourceParameters.setUrl(datasourceUrlTextField.getText());
-        dataSourceParameters.setUsername(datasourceUsernameTextField.getText());
-        dataSourceParameters.setPassword(datasourcePasswordTextField.getText());
-        dataSourceParameters.setDriverClassName(datasourceDriverClassNameTextField.getText());
-        propertiesParameters.setDataSourceParameters(dataSourceParameters);
-
-        String[] sqlQueries = sqlQueriesTextArea.getText().split(System.lineSeparator());
-        generatorParameters.setSqlQueries(Arrays.asList(sqlQueries));
-        generatorParameters.setPropertiesParameters(propertiesParameters);
-        generatorParameters.setProjectParameters(projectParameters);
-
-        List<SQLTable> sqlTables = generator.parseQueries(generatorParameters);
-        ExtendableZipFile zipFile = generator.generate(generatorParameters, sqlTables);
-        zipFile.unzipTo(outputDirectoryChooser.getCurrentDirectory().getAbsolutePath());
-    }
-
-    private String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                return button.getText().toUpperCase();
-            }
-        }
-        throw new IllegalStateException("All radio button groups are required");
     }
 }

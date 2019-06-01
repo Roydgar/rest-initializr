@@ -33,7 +33,7 @@ public class SpringInitializrParametersMapperImpl implements SpringInitializrPar
         initializrParameters.setDescription(projectParameters.getDescription());
 
         List<String> dependencies = new ArrayList<>(springInitializrProperties.getDependencies());
-        dependencies.add(sqlDialectToDependencyMap.get(projectParameters.getSqlDialect()));
+        dependencies.add(sqlDialectToDependencyMap.get(projectParameters.getSqlDialect())); // TODO:
         initializrParameters.setDependencies(dependencies);
 
         return initializrParameters;

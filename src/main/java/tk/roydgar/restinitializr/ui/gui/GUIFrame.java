@@ -1,5 +1,6 @@
 package tk.roydgar.restinitializr.ui.gui;
 
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tk.roydgar.restinitializr.config.properties.GUIProperties;
@@ -9,20 +10,21 @@ import javax.swing.*;
 import java.awt.*;
 
 @Component
+@Setter(onMethod = @__({@Autowired}))
 public class GUIFrame extends JFrame {
 
-    @Autowired
     private GUIProperties guiProperties;
-    @Autowired
-    private InputPanel userInputPanel;
+    private SQLQueriesPanel sqlQueriesPanel;
+
 
     @PostConstruct
-    public void dod() {
+    public void setUp() {
         this.setTitle(guiProperties.getWindowTitle());
         this.setPreferredSize(new Dimension(guiProperties.getWindowWidth(), guiProperties.getWindowHeight()));
-        this.setContentPane(userInputPanel.getContentPane());
+        this.setContentPane(sqlQueriesPanel.getContentPane());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
+        sqlQueriesPanel.setVisible(true);
     }
 
 }

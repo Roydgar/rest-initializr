@@ -3,10 +3,10 @@ package tk.roydgar.restinitializr.model;
 import lombok.Data;
 
 @Data
-public class GeneratorParameters {
+public class GeneratorRestParameters {
 
     private ProjectParameters projectParameters;
     private PropertiesParameters propertiesParameters;
-    private String outputDirectory;
+    private SQLInputQueries sqlInputQueries;
 
 }

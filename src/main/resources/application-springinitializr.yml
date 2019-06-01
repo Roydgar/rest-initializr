@@ -1,0 +1,9 @@
+spring-initializr:
+  springBootVersion: 2.1.5.RELEASE
+  dependencies:
+    - data-jpa
+    - web
+    - lombok
+  sqlDialectToDependencyMap:
+    MY_SQL: mysql
+    

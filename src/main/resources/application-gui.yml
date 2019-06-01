@@ -1,4 +1,10 @@
 gui:
-  window-width: 1510
-  window-height: 900
+  window-width: 900
+  window-height: 600
   window-title: REST generator
+  default-string-input-length: 40
+  max-string-input-length: 255
+  empty-format: "Please, enter non empty '%s'"
+  empty-or-too-long-format: "Please, enter non empty '%s' or size of which less than %s"
+  empty-or-doesnt-match-pattern-format: "Please, enter non empty '%s' or which matches the expression %s"
+  java-version-pattern: '^\d.\d{1,2}$'

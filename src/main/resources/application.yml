@@ -2,26 +2,11 @@ spring.profiles.include:
   - 'mysql'
   - 'validation'
   - 'gui'
+  - 'springinitializr'
+  - 'filenaming'
 
 zip-file:
   tempDir: temp
-
-file-extension:
-  typeToFileExtensionMap:
-    REPOSITORY: java
-    SERVICE: java
-    ENTITY: java
-    DTO: java
-    CREATE_REQUEST: java
-    UPDATE_REQUEST: java
-    REQUEST_MAPPER: java
-    RESPONSE_MAPPER: java
-    EXCEPTION: java
-    CONTROLLER_ADVICE: java
-    CONTROLLER: java
-    CONFIGURATION: java
-    PROPERTIES: yml
-    ENUM: java
 
 file-naming-dependencies:
   templateTypeTemplateKeyMap:
@@ -33,50 +18,12 @@ file-naming-dependencies:
     UPDATE_REQUEST: ENTITY
     REQUEST_MAPPER: ENTITY
     RESPONSE_MAPPER: ENTITY
-    EXCEPTION: NONE
+    NOT_FOUND_EXCEPTION: NONE
     CONTROLLER_ADVICE: NONE
     CONTROLLER: ENTITY
     CONFIGURATION: NONE
     PROPERTIES: NONE
     ENUM: ENTITY
-
-file-suffix:
-  typeToSuffixMap:
-    REPOSITORY: Repository
-    SERVICE: Service
-    ENTITY:
-    DTO: Dto
-    CREATE_REQUEST: CreateRequest
-    UPDATE_REQUEST: UpdateRequest
-    REQUEST_MAPPER: RequestMapper
-    RESPONSE_MAPPER: ResponseMapper
-    EXCEPTION: ResourceNotFoundException
-    CONTROLLER_ADVICE: ResourceExceptionHandler
-    CONTROLLER: Controller
-    CONFIGURATION: AppConfig
-    PROPERTIES: application
-    ENUM:
-
-package-naming:
-  default-project-path: src.main.java
-  resources-path: src.main.resources
-  custom-package-separator: .
-
-  typeToPackageNameMap:
-    REPOSITORY: repository
-    SERVICE: service
-    ENTITY: domain
-    DTO: domain.dto.response
-    CREATE_REQUEST:  domain.dto.request
-    UPDATE_REQUEST:  domain.dto.request
-    REQUEST_MAPPER:  mapper.request
-    RESPONSE_MAPPER:  mapper.response
-    EXCEPTION: exception
-    CONTROLLER_ADVICE: controller.advice
-    CONTROLLER: controller
-    CONFIGURATION: config
-    PROPERTIES:
-    ENUM: domain.enums
 
 template:
   templatesRelativePath: templates
@@ -107,7 +54,7 @@ template:
     UPDATE_REQUEST: updateRequest
     REQUEST_MAPPER: requestMapper
     RESPONSE_MAPPER: responseMapper
-    EXCEPTION: exception
+    NOT_FOUND_EXCEPTION: not-found-exception
     CONTROLLER_ADVICE: controllerAdvice
     CONTROLLER: controller
     CONFIGURATION: config
@@ -124,7 +71,7 @@ template-type-labels:
     UPDATE_REQUEST: update-request
     REQUEST_MAPPER: request-mapper
     RESPONSE_MAPPER: response-mapper
-    EXCEPTION: exception
+    NOT_FOUND_EXCEPTION: exception
     CONTROLLER_ADVICE: controller-advice
     CONTROLLER: controller
     CONFIGURATION: config
