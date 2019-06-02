@@ -2,7 +2,6 @@ package tk.roydgar.restinitializr.service.impl;
 
 
 import net.lingala.zip4j.exception.ZipException;
-import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class GeneratorImplIntegrationTest {
     @Autowired
     private GradleGoalExecutor gradleGoalExecutor;
     @Test
-    public void name() throws ZipException, IOException, MavenInvocationException {
+    public void name() throws ZipException, IOException {
 //        String query = "CREATE TABLE user_loh (id int auto_increment primary key, name VARCHAR(25) unique default \"loh\", " +
 //                "event_day ENUM ('Mon','Tue','Wed','Thu','Fri','Sat','Sun'))";
 //        List<String> dependencies = new ArrayList<>();

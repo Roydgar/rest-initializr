@@ -60,6 +60,11 @@ public class BeanConfig {
     }
 
     @Bean
+    public Runtime Runtime() {
+        return Runtime.getRuntime();
+    }
+
+    @Bean
     public List<SQLTableVisitor> queryProcessingVisitors(SQLColumnDefinitionVisitor sqlColumnDefinitionVisitor,
                                                          SQLCreateTableVisitor sqlCreateTableVisitor,
                                                          MySQLTableVisitor mySQLTableVisitor) {
@@ -157,6 +162,7 @@ public class BeanConfig {
         );
     }
 
+    @Bean
     public Map<AutomationBuildSystem, AutomationBuildGoalExecutor> automationBuildGoalExecutorMap (
             MavenGoalExecutor mavenGoalExecutor, GradleGoalExecutor gradleGoalExecutor) {
         return ImmutableMap.of(

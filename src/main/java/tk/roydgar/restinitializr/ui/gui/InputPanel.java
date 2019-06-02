@@ -10,7 +10,6 @@ import tk.roydgar.restinitializr.ui.gui.validator.impl.ProjectParametersPanelVal
 import tk.roydgar.restinitializr.util.CompositeActionListenerWithPriorities;
 import tk.roydgar.restinitializr.util.GUIUtils;
 
-import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -40,8 +39,7 @@ public class InputPanel implements GUIPanel {
     private Session session;
     private CompositeActionListenerWithPriorities prioritiesListener = new CompositeActionListenerWithPriorities();
 
-    @PostConstruct
-    public void setUp() {
+    public InputPanel() {
         jarRadioButton.setSelected(true);
         mavenRadioButton.setSelected(true);
 

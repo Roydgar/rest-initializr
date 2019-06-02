@@ -1,6 +1,6 @@
 gui:
-  window-width: 900
-  window-height: 600
+  window-width: 700
+  window-height: 5  00
   window-title: REST generator
   default-string-input-length: 40
   max-string-input-length: 255

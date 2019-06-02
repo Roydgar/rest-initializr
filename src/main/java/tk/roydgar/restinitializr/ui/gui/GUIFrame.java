@@ -16,7 +16,6 @@ public class GUIFrame extends JFrame {
     private GUIProperties guiProperties;
     private SQLQueriesPanel sqlQueriesPanel;
 
-
     @PostConstruct
     public void setUp() {
         this.setTitle(guiProperties.getWindowTitle());

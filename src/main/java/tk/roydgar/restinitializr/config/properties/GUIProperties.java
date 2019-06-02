@@ -16,7 +16,7 @@ public class GUIProperties {
     private int maxStringInputLength;
     private String emptyFormat;
     private String emptyOrTooLongFormat;
-    private String emptyOrDoesntMatchPatterFormat;
+    private String emptyOrDoesntMatchPatternFormat;
     private String javaVersionPattern;
 
 }

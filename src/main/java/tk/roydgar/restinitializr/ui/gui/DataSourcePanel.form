@@ -25,7 +25,7 @@
         <rowspec value="center:max(d;4px):noGrow"/>
         <rowspec value="top:4dlu:noGrow"/>
         <rowspec value="center:max(d;4px):noGrow"/>
-        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="top:16dlu:noGrow"/>
         <rowspec value="center:max(d;4px):noGrow"/>
         <rowspec value="top:4dlu:noGrow"/>
         <rowspec value="center:max(d;4px):noGrow"/>
@@ -882,7 +882,7 @@
           </component>
           <component id="f1cd" class="javax.swing.JButton" binding="nextButton" default-binding="true">
             <constraints>
-              <grid row="26" column="28" row-span="1" col-span="70" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="18" column="68" row-span="6" col-span="27" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
               <forms/>
             </constraints>
             <properties>
@@ -944,15 +944,6 @@
             </constraints>
             <properties/>
           </component>
-          <component id="ba08f" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="14" column="4" row-span="1" col-span="24" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-              <forms/>
-            </constraints>
-            <properties>
-              <text value="Driver class name"/>
-            </properties>
-          </component>
           <component id="314a9" class="javax.swing.JTextField" binding="datasourceUsernameTextField">
             <constraints>
               <grid row="10" column="32" row-span="1" col-span="62" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -990,6 +981,15 @@
             </constraints>
             <properties>
               <text value="Datasource configuration"/>
+            </properties>
+          </component>
+          <component id="ba08f" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="14" column="4" row-span="1" col-span="21" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms top="0" left="10" bottom="0" right="0"/>
+            </constraints>
+            <properties>
+              <text value="Driver class name"/>
             </properties>
           </component>
         </children>

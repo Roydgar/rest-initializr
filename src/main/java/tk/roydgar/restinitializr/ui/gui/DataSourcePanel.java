@@ -8,7 +8,6 @@ import tk.roydgar.restinitializr.ui.gui.validator.entity.ValidationResult;
 import tk.roydgar.restinitializr.ui.gui.validator.impl.DatasourcePanelValidator;
 import tk.roydgar.restinitializr.util.CompositeActionListenerWithPriorities;
 
-import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -32,8 +31,7 @@ public class DataSourcePanel implements GUIPanel {
 
     private CompositeActionListenerWithPriorities prioritiesListener = new CompositeActionListenerWithPriorities();
 
-    @PostConstruct
-    public void setUp() {
+    public DataSourcePanel() {
         ComboBoxModel<SQLDialect> comboBoxModel = new DefaultComboBoxModel<>(SQLDialect.values());
         sqlDialectComboBox.setModel(comboBoxModel);
 

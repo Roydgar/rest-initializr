@@ -1,7 +1,6 @@
 package tk.roydgar.restinitializr.ui.gui.action;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Component;
 import tk.roydgar.restinitializr.model.GeneratorParameters;
 import tk.roydgar.restinitializr.service.Generator;
@@ -20,8 +19,6 @@ public class GenerateAction implements ActionListener {
     private final UserInputComposer userInputComposer;
     private final Generator generator;
     private final Session session;
-    @Setter
-    private Runnable finishAction;
 
 
     @Override
@@ -31,12 +28,11 @@ public class GenerateAction implements ActionListener {
             ExtendableZipFile extendableZipFile = generator.generate(generatorParameters, session.getSqlTables());
             extendableZipFile.unzipTo(generatorParameters.getOutputDirectory());
             JOptionPane.showMessageDialog(null, "Success. Unzipped to: "
-                            + generatorParameters.getOutputDirectory(), "Fail", JOptionPane.ERROR_MESSAGE);
+                            + generatorParameters.getOutputDirectory(), "Success", JOptionPane.ERROR_MESSAGE);
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Generation failed: " + exception.toString(), "Fail"
                     , JOptionPane.ERROR_MESSAGE);
         }
-
-        finishAction.run();
     }
+
 }

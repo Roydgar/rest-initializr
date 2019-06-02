@@ -8,7 +8,6 @@ import tk.roydgar.restinitializr.ui.gui.validator.entity.ValidationResult;
 import tk.roydgar.restinitializr.ui.gui.validator.impl.SQLQueriesPanelValidator;
 import tk.roydgar.restinitializr.util.CompositeActionListenerWithPriorities;
 
-import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -20,6 +19,7 @@ public class SQLQueriesPanel implements GUIPanel {
     private JTextArea sqlQueriesTextArea;
     private JComboBox sqlDialectComboBox;
     private JButton nextButton;
+    private JScrollPane queriesTextAreaScrollPane;
     private CompositeActionListenerWithPriorities prioritiesListener = new CompositeActionListenerWithPriorities();
 
     @Autowired
@@ -27,12 +27,11 @@ public class SQLQueriesPanel implements GUIPanel {
     @Autowired
     private Session session;
 
-    @PostConstruct
-    public void setUp() {
+    public SQLQueriesPanel() {
+        queriesTextAreaScrollPane.setViewportView(sqlQueriesTextArea);
         ComboBoxModel<SQLDialect> comboBoxModel = new DefaultComboBoxModel<>(SQLDialect.values());
         sqlDialectComboBox.setModel(comboBoxModel);
 
-        prioritiesListener.addActionListener((e) -> validate(), 100);
         nextButton.addActionListener(prioritiesListener);
     }
 

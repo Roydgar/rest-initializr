@@ -2,7 +2,6 @@ package tk.roydgar.restinitializr.ui.gui;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;
-import tk.roydgar.restinitializr.util.CompositeActionListenerWithPriorities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +10,22 @@ import java.awt.event.ActionListener;
 @Component
 public class OutputDirectoryPanel implements GUIPanel {
     private JFileChooser outputDirectoryChooser;
-    private JButton generateButton;
+    private JButton generateProject;
     @Getter
     private JPanel contentPane;
-    private CompositeActionListenerWithPriorities prioritiesListener = new CompositeActionListenerWithPriorities();
+    private JButton cleanBuildButton;
+    private JButton runSpringBootAppButton;
 
     public void addGenerateButtonActionListener(ActionListener actionListener) {
-        generateButton.addActionListener(actionListener);
+        generateProject.addActionListener(actionListener);
+    }
+
+    public void addCleanBuildButtonActionListener(ActionListener actionListener) {
+        cleanBuildButton.addActionListener(actionListener);
+    }
+
+    public void addRunSpringBootAppButtonButtonActionListener(ActionListener actionListener) {
+        runSpringBootAppButton.addActionListener(actionListener);
     }
 
     public String getOutputDirectoryPath() {

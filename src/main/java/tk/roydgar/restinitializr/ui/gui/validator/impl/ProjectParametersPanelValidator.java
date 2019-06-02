@@ -25,6 +25,7 @@ public class ProjectParametersPanelValidator extends CommonPanelInputValidator {
         int maxLength = guiProperties.getMaxStringInputLength();
         int defaultLength = guiProperties.getDefaultStringInputLength();
         String emptyOrTooLongFormat = guiProperties.getEmptyOrTooLongFormat();
+        String emptyOrPatternFormat = guiProperties.getEmptyOrDoesntMatchPatternFormat();
         String javaVersionPattern = guiProperties.getJavaVersionPattern();
 
         validators.add(() -> new ValidationResult(emptyOrLessThenSize(inputPanel.getArtifactId(), defaultLength),
@@ -34,7 +35,7 @@ public class ProjectParametersPanelValidator extends CommonPanelInputValidator {
         validators.add(() -> new ValidationResult(emptyOrLessThenSize(inputPanel.getServerPort(), defaultLength),
                 format(emptyOrTooLongFormat, "Server port", defaultLength)));
         validators.add(() -> new ValidationResult(emptyOrMatchesPattern(inputPanel.getJavaVersion(), Pattern.compile(javaVersionPattern)),
-                format(emptyOrTooLongFormat, "Java version", javaVersionPattern)));
+                format(emptyOrPatternFormat, "Java version", javaVersionPattern)));
         validators.add(() -> new ValidationResult(emptyOrLessThenSize(inputPanel.getDescription(), maxLength),
                 format(emptyOrTooLongFormat, "Description", maxLength)));
     }

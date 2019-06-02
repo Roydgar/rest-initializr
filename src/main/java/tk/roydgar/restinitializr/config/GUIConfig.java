@@ -6,15 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import tk.roydgar.restinitializr.ui.gui.*;
-import tk.roydgar.restinitializr.ui.gui.action.CheckConnectionAction;
-import tk.roydgar.restinitializr.ui.gui.action.GenerateAction;
-import tk.roydgar.restinitializr.ui.gui.action.NextPanelAction;
-import tk.roydgar.restinitializr.ui.gui.action.ParseQueriesAction;
+import tk.roydgar.restinitializr.ui.gui.action.*;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.util.Map;
 
 @Configuration
@@ -29,6 +25,8 @@ public class GUIConfig {
     private final GenerateAction generateAction;
     private final ParseQueriesAction parseQueriesAction;
     private final CheckConnectionAction checkConnectionAction;
+    private final CleanBuildAction cleanBuildAction;
+    private final RunSpringBootAction runSpringBootAction;
     private final Session session;
     private final GUIFrame guiFrame;
 
@@ -51,9 +49,9 @@ public class GUIConfig {
         Map<GUIPanel, GUIPanel> currentPanelToNextPanelPagingMap = currentPanelToNextPanelPagingMap();
         checkConnectionAction.setExecutionCondition(s -> s.getValidationResult().isSuccess());
         parseQueriesAction.setExecutionCondition(s -> s.getValidationResult().isSuccess());
-        generateAction.setFinishAction(() -> guiFrame.dispatchEvent(new WindowEvent(guiFrame, WindowEvent.WINDOW_CLOSING)));
-
         outputDirectoryPanel.addGenerateButtonActionListener(generateAction);
+        outputDirectoryPanel.addCleanBuildButtonActionListener(cleanBuildAction);
+        outputDirectoryPanel.addRunSpringBootAppButtonButtonActionListener(runSpringBootAction);
         dataSourcePanel.addCheckConnectionButtonActionListener(checkConnectionAction);
         sqlQueriesPanel.addNextButtonActionListener(parseQueriesAction, 1);
 

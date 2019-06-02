@@ -7,23 +7,25 @@ import tk.roydgar.restinitializr.service.goal.AutomationBuildGoalExecutor;
 
 import java.io.File;
 
+import static java.lang.String.format;
+
 @Component
 @RequiredArgsConstructor
 public class GradleGoalExecutor implements AutomationBuildGoalExecutor {
-    private static String GRADLEW_EXECUTABLE = "gradlew.bat";
-    private static String BALNK = " ";
+    private final Runtime runtime;
+    private final static String COMMAND_FORMAT = "cmd.exe /c start %s";
+
 
     @Override
     @SneakyThrows
-    public void cleanInstall(String projectLocation) {
-        String command = projectLocation + File.separator + GRADLEW_EXECUTABLE + BALNK + "jar";
-        Runtime.getRuntime().exec(command);
+    public void cleanBuild(String projectLocation) {
+        runtime.exec(format(COMMAND_FORMAT, "./gradlew clean build"), null, new File(projectLocation));
     }
 
     @Override
     @SneakyThrows
-    public void runSpringBootApp(String projectLocation) {
-        String command = projectLocation + File.separator + GRADLEW_EXECUTABLE + BALNK + "bootRun";
-        Runtime.getRuntime().exec(command);
+    public void runSpringBoot(String projectLocation) {
+        runtime.exec(format(COMMAND_FORMAT, "./gradlew bootRun"), null, new File(projectLocation));
     }
 }
+
